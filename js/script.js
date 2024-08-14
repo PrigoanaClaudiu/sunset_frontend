@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    if (!document.getElementById('auth-page') && window.location.pathname !== '/sunset_frontend/index.html') {
+    if (!document.getElementById('auth-page') && window.location.pathname !== '../index.html') {
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
