@@ -142,32 +142,28 @@ body, html {
 }
 
 /* reservation box index */
-.reserve-info-btn {
-    background-color: #ffcc00; 
+.reservation-box {
+    background-color: #d3d3d3; /* Gri deschis */
     padding: 20px;
-    margin: 20px 0; 
-    text-align: center;
-    border-radius: 5px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto; /* Centrare orizontală */
+    text-align: center; /* Centrare text */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Limitează lățimea secțiunii */
 }
 
-.reserve-info-btn p {
-    margin: 0 0 15px 0; 
-    font-size: 18px;
-    color: #333; 
-}
-
-.reserve-info-btn {
+.reserve-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #d9534f; 
-    color: white; 
+    background-color: #d9534f; /* Culoare de fundal pentru buton */
+    color: white; /* Culoare text */
     text-decoration: none;
     font-size: 18px;
-    border-radius: 5px; 
-    transition: background-color 0.3s ease; 
+    border-radius: 5px; /* Colțuri rotunjite */
+    margin-top: 15px; /* Spațiu între text și buton */
+    transition: background-color 0.3s ease; /* Tranziție pentru hover */
 }
 
-.reserve-info-btn:hover {
-    background-color: #c9302c; 
+.reserve-btn:hover {
+    background-color: #c9302c; /* Culoare de fundal mai închisă la hover */
 }
