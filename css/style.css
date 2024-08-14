@@ -120,15 +120,17 @@ nav ul li a.reserve-btn {
 .slideshow-container {
     flex: 3;
     margin-right: 20px;
+    height: auto; /* Asigură că slideshow-ul își păstrează dimensiunea */
 }
 
 .info-box {
-    width: auto; /* Lățime automată pentru a se ajusta după conținut */
+    width: 250px; /* Mai îngust */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    align-self: center; /* Centrare verticală față de slideshow */
+    text-align: center; /* Centrare text */
+    align-self: center; /* Centrare față de slideshow */
 }
 
 .info-box h2 {
@@ -138,5 +140,6 @@ nav ul li a.reserve-btn {
 
 .info-box p, .info-box ul {
     margin: 5px 0;
-    padding-left: 20px;
+    padding-left: 0;
+    list-style-type: none; /* Elimină bulinele din listă */
 }
