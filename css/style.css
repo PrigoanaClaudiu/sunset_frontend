@@ -125,7 +125,7 @@ body, html {
 
 .slideshow-container {
     flex: 3;
-    margin-right: 100px; /* Spațiu între slideshow și containerul de informații */
+    margin-right: 60px; /* Spațiu între slideshow și containerul de informații */
     margin-left: 0; 
     padding: 0; 
     height: auto; 
@@ -167,3 +167,20 @@ body, html {
 .reserve-info-btn:hover {
     background-color: #c9302c; 
 }
+
+/* map */
+.map-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.map-container h2 {
+    margin-bottom: 20px;
+}
+
