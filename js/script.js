@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* slideshow */
 let slideIndex = 0;
-showSlides();
+let slideTimer;
 
 function showSlides() {
     let i;
@@ -21,10 +21,18 @@ function showSlides() {
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}    
     slides[slideIndex-1].style.display = "block";  
-    setTimeout(showSlides, 10000); // Change image every 10 seconds
+    // Set the timer to change the slide every 10 seconds
+    slideTimer = setTimeout(showSlides, 10000); 
 }
 
 function plusSlides(n) {
+    // Clear the existing timer to reset it
+    clearTimeout(slideTimer);
+    // Adjust the slide index
     slideIndex += n - 1;
+    // Show the next slide
     showSlides();
 }
+
+// Initialize the slideshow
+showSlides();
