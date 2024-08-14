@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    if (!document.getElementById('auth-page')) {
+    if (!document.getElementById('auth-page') && window.location.pathname !== '/sunset_frontend/index.html') {
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
@@ -21,7 +21,7 @@ function showSlides() {
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}    
     slides[slideIndex-1].style.display = "block";  
-    setTimeout(showSlides, 4000); // Change image every 4 seconds
+    setTimeout(showSlides, 10000); // Change image every 10 seconds
 }
 
 function plusSlides(n) {
