@@ -142,7 +142,7 @@ body, html {
 }
 
 /* reservation box index */
-.reservation-box {
+.reserve-info-btn {
     background-color: #ffcc00; 
     padding: 20px;
     margin: 20px 0; 
@@ -151,13 +151,13 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
-.reservation-box p {
+.reserve-info-btn p {
     margin: 0 0 15px 0; 
     font-size: 18px;
     color: #333; 
 }
 
-.reserve-btn {
+.reserve-info-btn {
     display: inline-block;
     padding: 10px 20px;
     background-color: #d9534f; 
@@ -168,6 +168,6 @@ body, html {
     transition: background-color 0.3s ease; 
 }
 
-.reserve-btn:hover {
+.reserve-info-btn:hover {
     background-color: #c9302c; 
 }
