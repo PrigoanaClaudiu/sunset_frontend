@@ -109,22 +109,21 @@ nav ul li a.reserve-btn {
 /* slideshow */
 
 /* container index */
-
 .content-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centrare verticală */
+    justify-content: flex-start; /* Slideshow-ul să fie aproape de marginea stângă */
+    align-items: center; /* Centrare verticală a elementelor */
     margin: 20px;
 }
 
 .slideshow-container {
     flex: 3;
-    margin-right: 20px;
-    height: auto; /* Asigură că slideshow-ul își păstrează dimensiunea */
+    margin-right: 40px; /* Spațiu între slideshow și containerul de informații */
+    height: auto; /* Asigură dimensiunea corectă a slideshow-ului */
 }
 
 .info-box {
-    width: 250px; /* Mai îngust */
+    width: 250px; /* Menține lățimea containerului */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 5px;
