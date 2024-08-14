@@ -113,6 +113,7 @@ nav ul li a.reserve-btn {
 .content-container {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Centrare verticală */
     margin: 20px;
 }
 
@@ -122,17 +123,20 @@ nav ul li a.reserve-btn {
 }
 
 .info-box {
-    flex: 1;
+    width: auto; /* Lățime automată pentru a se ajusta după conținut */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-self: center; /* Centrare verticală față de slideshow */
 }
 
 .info-box h2 {
     margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .info-box p, .info-box ul {
-    margin: 10px 0;
+    margin: 5px 0;
+    padding-left: 20px;
 }
