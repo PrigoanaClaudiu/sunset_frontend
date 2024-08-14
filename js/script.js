@@ -21,8 +21,7 @@ function showSlides() {
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}    
     slides[slideIndex-1].style.display = "block";  
-    // Set the timer to change the slide every 10 seconds
-    slideTimer = setTimeout(showSlides, 10000); 
+    slideTimer = setTimeout(showSlides, 5000); 
 }
 
 function plusSlides(n) {

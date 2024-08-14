@@ -107,3 +107,32 @@ nav ul li a.reserve-btn {
     to {opacity: 1}
 }
 /* slideshow */
+
+/* container index */
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.slideshow-container {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.info-box {
+    flex: 1;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+    margin-top: 0;
+}
+
+.info-box p, .info-box ul {
+    margin: 10px 0;
+}
