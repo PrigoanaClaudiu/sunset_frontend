@@ -201,14 +201,14 @@ body, html {
 }
 
 /* info about cabin - about page */
-.info-grid {
+.info-grid-about {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.info-box {
+.info-box-about {
     background-color: #e3b04b;
     color: white;
     padding: 15px 20px;
@@ -220,13 +220,13 @@ body, html {
     max-width: 200px;
 }
 
-.info-box p {
+.info-box-about p {
     font-size: 24px;
     margin: 0;
     font-weight: bold;
 }
 
-.info-box span {
+.info-box-about span {
     font-size: 16px;
 }
 
