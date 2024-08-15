@@ -37,7 +37,7 @@ function plusSlides(n) {
 showSlides();
 
 const facilityImages = [
-    "../images/ciubar.jpg",
+    "../images/ciubar.jpeg",
     "../images/piscina.jpg"
 ];
 
@@ -59,6 +59,7 @@ let imageInterval = setInterval(changeImage, 5000);
 document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
+        console.log("Setting image to:", newImage);  // Verifică în consolă calea imaginii
         document.getElementById('facility-img').setAttribute('src', newImage);
         autoChange = false; 
         clearInterval(imageInterval);
