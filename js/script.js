@@ -36,11 +36,32 @@ function plusSlides(n) {
 // Initialize the slideshow
 showSlides();
 
-// Schimbarea imaginii în funcție de opțiunea selectată
+const facilityImages = [
+    "../images/ciubar.jpg",
+    "../images/piscina.jpg"
+];
+
+
+// about page - facilities
+let currentIndex = 0;
+let autoChange = true;
+
+function changeImage() {
+    if (autoChange) {
+        document.getElementById('facility-img').setAttribute('src', facilityImages[currentIndex]);
+        currentIndex = (currentIndex + 1) % facilityImages.length;
+    }
+}
+
+// changing interval
+let imageInterval = setInterval(changeImage, 5000);
+
 document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
-        console.log(newImage);  // Afișează în consolă calea imaginii selectate
         document.getElementById('facility-img').setAttribute('src', newImage);
+        autoChange = false; 
+        clearInterval(imageInterval);
     });
 });
+
