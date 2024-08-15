@@ -45,7 +45,7 @@ const facilityImages = [
     "../images/ciubar.jpeg",
     "../images/piscina.jpg",
     "../images/bucatarie.jpeg",
-    "../images/gratar.jpeg"
+    "../images/gratar.jpg"
 ];
 
 
