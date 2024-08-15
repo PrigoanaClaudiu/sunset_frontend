@@ -43,7 +43,9 @@ showSlides();
 // facilities
 const facilityImages = [
     "../images/ciubar.jpeg",
-    "../images/piscina.jpg"
+    "../images/piscina.jpg",
+    "../images/bucatarie.jpeg",
+    "../images/gratar.jpeg"
 ];
 
 
