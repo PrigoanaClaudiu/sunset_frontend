@@ -15,6 +15,9 @@ let slideTimer;
 function showSlides() {
     let i;
     let slides = document.getElementsByClassName("mySlides");
+    
+    if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
+    
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  
     }
