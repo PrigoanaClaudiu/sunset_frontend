@@ -40,6 +40,7 @@ showSlides();
 document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
+        console.log(newImage);  // Afișează în consolă calea imaginii selectate
         document.getElementById('facility-img').setAttribute('src', newImage);
     });
 });
