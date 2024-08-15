@@ -39,33 +39,40 @@ function plusSlides(n) {
 // Initialize the slideshow
 showSlides();
 
+
+// facilities
 const facilityImages = [
     "../images/ciubar.jpeg",
     "../images/piscina.jpg"
 ];
 
 
-// about page - facilities
+
 let currentIndex = 0;
 let autoChange = true;
 
 function changeImage() {
     if (autoChange) {
-        document.getElementById('facility-img').setAttribute('src', facilityImages[currentIndex]);
+        const facilityImg = document.getElementById('facility-img');
+        facilityImg.setAttribute('src', facilityImages[currentIndex]);
+        facilityImg.style.objectFit = "cover";  // asigura ca img se redimensioneaza corect
         currentIndex = (currentIndex + 1) % facilityImages.length;
     }
 }
 
-// changing interval
-let imageInterval = setInterval(changeImage, 5000);
+let imageInterval = setInterval(changeImage, 4000);
 
+// opreste rotatia si seteaza o imagine la selectarea unei obtiuni
 document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
-        console.log("Setting image to:", newImage);  // Verifică în consolă calea imaginii
-        document.getElementById('facility-img').setAttribute('src', newImage);
-        autoChange = false; 
-        clearInterval(imageInterval);
+        const facilityImg = document.getElementById('facility-img');
+        facilityImg.setAttribute('src', newImage);
+        facilityImg.style.objectFit = "cover";  // asigura ca img e corect redimensionata
+        autoChange = false;  
+        clearInterval(imageInterval);  // opreste intervalul de schimbare automat
     });
 });
 
+// Inițializează schimbarea automată a imaginilor
+changeImage();
