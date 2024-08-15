@@ -35,3 +35,11 @@ function plusSlides(n) {
 
 // Initialize the slideshow
 showSlides();
+
+// Schimbarea imaginii în funcție de opțiunea selectată
+document.querySelectorAll('.facility-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const newImage = this.getAttribute('data-image');
+        document.getElementById('facility-img').setAttribute('src', newImage);
+    });
+});

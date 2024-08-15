@@ -230,3 +230,62 @@ body, html {
     font-size: 16px;
 }
 
+/* Container facilities - about page */
+.facilities-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    align-items: flex-start;
+}
+
+/* faciliti image - about page */
+.facilities-image {
+    flex: 2;
+}
+
+.facilities-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* facilities menu - about page */
+.facilities-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.facility-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.facility-item:hover {
+    background-color: #e3b04b;
+    color: white;
+}
+
+.facility-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.facility-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.facility-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
