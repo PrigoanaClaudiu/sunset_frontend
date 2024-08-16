@@ -1,0 +1,120 @@
+/* auth.css */
+
+/* Stiluri generale pentru containerul de autentificare */
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titlul paginii de autentificare */
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Stiluri pentru input-uri */
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* Stiluri pentru buton */
+.auth-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Link pentru recuperarea parolei sau înregistrare */
+.auth-container .auth-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-container .auth-link:hover {
+    text-decoration: underline;
+}
+
+/* Mesaj de eroare */
+.auth-container .error-message {
+    color: #ff4d4d;
+    background-color: #ffe6e6;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Mesaj de succes */
+.auth-container .success-message {
+    color: #4CAF50;
+    background-color: #e6ffe6;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Stiluri pentru inputurile tip checkbox (opțional) */
+.auth-container .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.auth-container .checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.auth-container .checkbox-container label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Media Queries pentru ecrane mici */
+@media (max-width: 500px) {
+    .auth-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+    
+    .auth-container h2 {
+        font-size: 24px;
+    }
+    
+    .auth-container input[type="text"],
+    .auth-container input[type="email"],
+    .auth-container input[type="password"] {
+        font-size: 14px;
+    }
+
+    .auth-container button {
+        font-size: 14px;
+    }
+}
