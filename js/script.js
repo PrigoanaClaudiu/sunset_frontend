@@ -87,13 +87,21 @@ document.querySelectorAll('.gallery-item').forEach(item => {
         const sectionId = this.getAttribute('data-section');
         const section = document.getElementById(sectionId);
 
+        // Verifică dacă secțiunea este deja deschisă
+        const isOpen = section.style.display === 'block';
+
+        // Închide toate secțiunile deschise
         document.querySelectorAll('.expanded-gallery').forEach(gallery => {
             gallery.style.display = 'none';
         });
 
-        section.style.display = 'block';
+        // Deschide secțiunea selectată dacă nu era deja deschisă
+        if (!isOpen) {
+            section.style.display = 'block';
+        }
     });
 });
+
 
 // Funcționalitate de mărire a imaginilor
 document.querySelectorAll('.expanded-gallery-grid img').forEach(img => {
