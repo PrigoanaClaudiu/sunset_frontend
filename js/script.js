@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Încărcarea header-ului pe paginile care nu sunt index.html sau pagina principală
     if (!document.getElementById('auth-page') && window.location.pathname !== '/sunset_frontend/index.html' && window.location.pathname !== '/sunset_frontend/') {
         fetch('header.html')
             .then(response => response.text())
@@ -7,82 +6,80 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.body.insertAdjacentHTML('afterbegin', data);
             });
     }
+});
 
-    // slideshow
-    let slideIndex = 0;
-    let slideTimer;
+/* slideshow */
+let slideIndex = 0;
+let slideTimer;
 
-    function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-
-        if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
-
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1 }
-        slides[slideIndex - 1].style.display = "block";
-        slideTimer = setTimeout(showSlides, 5000);
+function showSlides() {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    
+    if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
+    
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
     }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    slides[slideIndex-1].style.display = "block";  
+    slideTimer = setTimeout(showSlides, 5000); 
+}
 
-    function plusSlides(n) {
-        clearTimeout(slideTimer);
-        slideIndex += n;
-        if (slideIndex > document.getElementsByClassName("mySlides").length) { slideIndex = 1 }
-        if (slideIndex < 1) { slideIndex = document.getElementsByClassName("mySlides").length }
-        showSlides();
-    }
+function plusSlides(n) {
+    // Clear the existing timer to reset it
+    clearTimeout(slideTimer);
+    // Adjust the slide index
+    slideIndex += n - 1;
+    // Show the next slide
+    showSlides();
+}
 
-    // Inițializează slideshow-ul doar dacă există elemente cu clasa "mySlides"
-    if (document.getElementsByClassName("mySlides").length > 0) {
-        showSlides();
-    }
+// Initialize the slideshow
+showSlides();
 
-    // facilities page
-    if (document.getElementById('facility-img') && window.location.pathname === '/sunset_frontend/about.html') {
-        const facilityImages = [
-            "../images/ciubar.jpeg",
-            "../images/piscina.jpg",
-            "../images/bucatarie.jpeg",
-            "../images/gratar.jpg"
-        ];
 
-        let currentIndex = 0;
-        let autoChange = true;
+// facilities
+const facilityImages = [
+    "../images/ciubar.jpeg",
+    "../images/piscina.jpg",
+    "../images/bucatarie.jpeg",
+    "../images/gratar.jpg"
+];
 
-        function changeImage() {
-            const facilityImg = document.getElementById('facility-img');
-            if (!facilityImg) return; // Întrerupe dacă elementul nu există
 
-            if (autoChange) {
-                facilityImg.setAttribute('src', facilityImages[currentIndex]);
-                facilityImg.style.objectFit = "cover";  // Asigură că imaginea se redimensionează corect
-                currentIndex = (currentIndex + 1) % facilityImages.length;
-            }
-        }
 
-        // Setează prima imagine imediat după încărcarea paginii
+let currentIndex = 0;
+let autoChange = true;
+
+function changeImage() {
+    if (autoChange) {
         const facilityImg = document.getElementById('facility-img');
-        if (facilityImg) {
-            facilityImg.setAttribute('src', facilityImages[0]);
-            facilityImg.style.objectFit = "cover";
-        }
+        facilityImg.setAttribute('src', facilityImages[currentIndex]);
+        facilityImg.style.objectFit = "cover";  // asigura ca img se redimensioneaza corect
+        currentIndex = (currentIndex + 1) % facilityImages.length;
+    }
+}
 
-        let imageInterval = setInterval(changeImage, 4000);
+let imageInterval = setInterval(changeImage, 4000);
 
-        // Oprește rotația și setează o imagine la selectarea unei opțiuni
-        document.querySelectorAll('.facility-item').forEach(item => {
-            item.addEventListener('click', function () {
-                const newImage = this.getAttribute('data-image');
-                facilityImg.setAttribute('src', newImage);
-                facilityImg.style.objectFit = "cover";
-                autoChange = false;
-                clearInterval(imageInterval);
-            });
-        });
+// opreste rotatia si seteaza o imagine la selectarea unei obtiuni
+document.querySelectorAll('.facility-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const newImage = this.getAttribute('data-image');
+        const facilityImg = document.getElementById('facility-img');
+        facilityImg.setAttribute('src', newImage);
+        facilityImg.style.objectFit = "cover";  // asigura ca img e corect redimensionata
+        autoChange = false;  
+        clearInterval(imageInterval);  // opreste intervalul de schimbare automat
+    });
+});
 
-        // Inițializează schimbarea automată a imaginilor
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname === '/sunset_frontend/about.html') {
+        // Rulăm funcțiile specifice paginii de galerii
         changeImage();
     }
+});
