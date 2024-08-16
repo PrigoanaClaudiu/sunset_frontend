@@ -80,7 +80,7 @@ document.querySelectorAll('.facility-item').forEach(item => {
 // changeImage();
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/photos.html') {
+    if (window.location.pathname === '/sunset_frontend/about.html') {
         // Rulăm funcțiile specifice paginii de galerii
         changeImage();
     }

@@ -304,8 +304,8 @@ body, html {
 
 .gallery-item {
     position: relative;
-    width: 400px; /* dimensions */
-    height: 300px; /*  */
+    width: 600px; /* dimensions */
+    height: 400px; /*  */
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -351,7 +351,7 @@ body, html {
 }
 
 /* Stilizare galerie extinsă */
-.expanded-gallery {
+/* .expanded-gallery {
     margin-top: 20px;
     padding: 20px;
     background-color: #f8f8f8;
@@ -377,11 +377,11 @@ body, html {
 
 .expanded-gallery-grid img:hover {
     transform: scale(1.1);
-}
+} */
 
 /* pt modal */
 /* Stilizare modal imagine */
-.image-modal {
+/* .image-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -413,4 +413,4 @@ body, html {
     color: white;
     font-size: 30px;
     cursor: pointer;
-}
+} */
