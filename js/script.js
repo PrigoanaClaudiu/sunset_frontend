@@ -78,3 +78,42 @@ document.querySelectorAll('.facility-item').forEach(item => {
 
 // Inițializează schimbarea automată a imaginilor
 changeImage();
+
+
+// photo page
+// Funcționalitate de deschidere a secțiunilor
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const sectionId = this.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+
+        document.querySelectorAll('.expanded-gallery').forEach(gallery => {
+            gallery.style.display = 'none';
+        });
+
+        section.style.display = 'block';
+    });
+});
+
+// Funcționalitate de mărire a imaginilor
+document.querySelectorAll('.expanded-gallery-grid img').forEach(img => {
+    img.addEventListener('click', function() {
+        const modal = document.createElement('div');
+        modal.classList.add('image-modal');
+        modal.innerHTML = `
+            <div class="image-modal-content">
+                <span class="close">&times;</span>
+                <img src="${this.src}" alt="${this.alt}">
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.querySelector('.close').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        modal.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+    });
+});

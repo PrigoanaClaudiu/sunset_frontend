@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <title>Poze - Cabana Sunset</title>
+    <title>Galerie Foto - Cabana Sunset</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <main>
-        <h1>Poze</h1>
-        <p>Galerie de imagini.</p>
+        <div class="gallery-section">
+            <div class="gallery-item" data-section="section1">
+                <img src="../images/living1.jpeg" alt="Living">
+                <div class="gallery-overlay">
+                    <h3>Living</h3>
+                </div>
+            </div>
+            <div class="gallery-item" data-section="section2">
+                <img src="../images/ciubar1.jpeg" alt="Ciubar">
+                <div class="gallery-overlay">
+                    <h3>Primul Dormitor</h3>
+                </div>
+            </div>
+            <!-- Adaugă mai multe secțiuni aici -->
+        </div>
+
+        <!-- Secțiuni de imagini expandate -->
+        <div id="section1" class="expanded-gallery" style="display:none;">
+            <h3>Living</h3>
+            <div class="expanded-gallery-grid">
+                <img src="../images/living1.jpeg" alt="Living 1">
+                <img src="../images/living2.jpeg" alt="Living 2">
+                <img src="../images/living3.jpg" alt="Living 3">
+                <!-- Adaugă mai multe imagini dacă este necesar -->
+            </div>
+        </div>
+
+        <div id="section2" class="expanded-gallery" style="display:none;">
+            <h3>Primul Dormitor</h3>
+            <div class="expanded-gallery-grid">
+                <img src="../images/ciubar1.jpeg" alt="Ciubar 1">
+                <img src="../images/ciubar2.jpeg" alt="Ciubar 2">
+                <img src="../images/ciubar3.jpeg" alt="Ciubar 3">
+                <img src="../images/ciubar4.jpeg" alt="Ciubar 4">
+                <!-- Adaugă mai multe imagini dacă este necesar -->
+            </div>
+        </div>
     </main>
     <script src="../js/script.js"></script>
 </body>
