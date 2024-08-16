@@ -103,34 +103,50 @@ document.querySelectorAll('.gallery-item').forEach(item => {
 });
 
 
-// Funcționalitate de mărire a imaginilor
-document.querySelectorAll('.expanded-gallery-grid img').forEach(img => {
-    img.addEventListener('click', function() {
-        const modal = document.createElement('div');
-        modal.classList.add('image-modal');
-        modal.innerHTML = `
-            <div class="image-modal-content">
-                <span class="close">&times;</span>
-                <img src="${this.src}" alt="${this.alt}">
-            </div>
-        `;
+// photo page - gallery
+if (window.location.pathname === '/sunset_frontend/photos.html') {
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const sectionId = this.getAttribute('data-section');
+            const section = document.getElementById(sectionId);
 
-        document.body.appendChild(modal);
+            // Verifică dacă secțiunea este deja deschisă
+            const isOpen = section.style.display === 'block';
 
-        modal.querySelector('.close').addEventListener('click', () => {
-            document.body.removeChild(modal);
-        });
-        modal.addEventListener('click', () => {
-            document.body.removeChild(modal);
+            // Închide toate secțiunile deschise
+            document.querySelectorAll('.expanded-gallery').forEach(gallery => {
+                gallery.style.display = 'none';
+            });
+
+            // Deschide secțiunea selectată dacă nu era deja deschisă
+            if (!isOpen) {
+                section.style.display = 'block';
+            }
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/photos.html') {
-        // Rulăm funcțiile specifice paginii de galerii
-        changeImage();
-        // Alte funcții specifice paginii...
-    }
-});
+    // Funcționalitate de mărire a imaginilor
+    document.querySelectorAll('.expanded-gallery-grid img').forEach(img => {
+        img.addEventListener('click', function() {
+            const modal = document.createElement('div');
+            modal.classList.add('image-modal');
+            modal.innerHTML = `
+                <div class="image-modal-content">
+                    <span class="close">&times;</span>
+                    <img src="${this.src}" alt="${this.alt}">
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.querySelector('.close').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            modal.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        });
+    });
+}
+
 
