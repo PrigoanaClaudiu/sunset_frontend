@@ -6,127 +6,83 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.body.insertAdjacentHTML('afterbegin', data);
             });
     }
-});
 
-/* slideshow */
-let slideIndex = 0;
-let slideTimer;
+    // slideshow
+    let slideIndex = 0;
+    let slideTimer;
 
-function showSlides() {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    
-    if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
-    
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+
+        if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        slideTimer = setTimeout(showSlides, 5000);
     }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}    
-    slides[slideIndex-1].style.display = "block";  
-    slideTimer = setTimeout(showSlides, 5000); 
-}
 
-function plusSlides(n) {
-    // Clear the existing timer to reset it
-    clearTimeout(slideTimer);
-    // Adjust the slide index
-    slideIndex += n - 1;
-    // Show the next slide
+    function plusSlides(n) {
+        // Clear the existing timer to reset it
+        clearTimeout(slideTimer);
+        // Adjust the slide index
+        slideIndex += n - 1;
+        // Show the next slide
+        showSlides();
+    }
+
+    // Initialize the slideshow
     showSlides();
-}
-
-// Initialize the slideshow
-showSlides();
 
 
-// facilities
-const facilityImages = [
-    "../images/ciubar.jpeg",
-    "../images/piscina.jpg",
-    "../images/bucatarie.jpeg",
-    "../images/gratar.jpg"
-];
+    // facilities page
+    if (document.getElementById('facility-img')) {
+        const facilityImages = [
+            "../images/ciubar.jpeg",
+            "../images/piscina.jpg",
+            "../images/bucatarie.jpeg",
+            "../images/gratar.jpg"
+        ];
 
+        let currentIndex = 0;
+        let autoChange = true;
 
+        function changeImage() {
+            const facilityImg = document.getElementById('facility-img');
+            if (!facilityImg) return; // Întrerupe dacă elementul nu există
 
-let currentIndex = 0;
-let autoChange = true;
+            if (autoChange) {
+                facilityImg.setAttribute('src', facilityImages[currentIndex]);
+                facilityImg.style.objectFit = "cover";  // Asigură că imaginea se redimensionează corect
+                currentIndex = (currentIndex + 1) % facilityImages.length;
+            }
+        }
 
-function changeImage() {
-    if (autoChange) {
+        // Setează prima imagine imediat după încărcarea paginii
         const facilityImg = document.getElementById('facility-img');
-        facilityImg.setAttribute('src', facilityImages[currentIndex]);
-        facilityImg.style.objectFit = "cover";  // asigura ca img se redimensioneaza corect
-        currentIndex = (currentIndex + 1) % facilityImages.length;
-    }
-}
+        if (facilityImg) {
+            facilityImg.setAttribute('src', facilityImages[0]);
+            facilityImg.style.objectFit = "cover";
+        }
 
-let imageInterval = setInterval(changeImage, 4000);
+        let imageInterval = setInterval(changeImage, 4000);
 
-// opreste rotatia si seteaza o imagine la selectarea unei obtiuni
-document.querySelectorAll('.facility-item').forEach(item => {
-    item.addEventListener('click', function() {
-        const newImage = this.getAttribute('data-image');
-        const facilityImg = document.getElementById('facility-img');
-        facilityImg.setAttribute('src', newImage);
-        facilityImg.style.objectFit = "cover";  // asigura ca img e corect redimensionata
-        autoChange = false;  
-        clearInterval(imageInterval);  // opreste intervalul de schimbare automat
-    });
-});
+        // Oprește rotația și setează o imagine la selectarea unei opțiuni
+        document.querySelectorAll('.facility-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const newImage = this.getAttribute('data-image');
+                facilityImg.setAttribute('src', newImage);
+                facilityImg.style.objectFit = "cover";
+                autoChange = false;
+                clearInterval(imageInterval);
+            });
+        });
 
-// // Inițializează schimbarea automată a imaginilor
-// changeImage();
-
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/about.html') {
-        // Rulăm funcțiile specifice paginii de galerii
+        // Inițializează schimbarea automată a imaginilor
         changeImage();
     }
 });
-
-// photo page
-// // Funcționalitate de deschidere a secțiunilor
-// document.querySelectorAll('.gallery-item').forEach(item => {
-//     item.addEventListener('click', function() {
-//         const sectionId = this.getAttribute('data-section');
-//         const section = document.getElementById(sectionId);
-
-//         // Verifică dacă secțiunea este deja deschisă
-//         const isOpen = section.style.display === 'block';
-
-//         // Închide toate secțiunile deschise
-//         document.querySelectorAll('.expanded-gallery').forEach(gallery => {
-//             gallery.style.display = 'none';
-//         });
-
-//         // Deschide secțiunea selectată dacă nu era deja deschisă
-//         if (!isOpen) {
-//             section.style.display = 'block';
-//         }
-//     });
-// });
-
-
-// photo page - gallery
-// if (window.location.pathname === '/sunset_frontend/photos.html') {
-//     document.querySelectorAll('.gallery-item').forEach(item => {
-//         item.addEventListener('click', function() {
-//             const sectionId = this.getAttribute('data-section');
-//             const section = document.getElementById(sectionId);
-
-//             // Verifică dacă secțiunea este deja deschisă
-//             const isOpen = section.style.display === 'block';
-
-//             // Închide toate secțiunile deschise
-//             document.querySelectorAll('.expanded-gallery').forEach(gallery => {
-//                 gallery.style.display = 'none';
-//             });
-
-//             // Deschide secțiunea selectată dacă nu era deja deschisă
-//             if (!isOpen) {
-//                 section.style.display = 'block';
-//             }
-//         });
-//     });
