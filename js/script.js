@@ -125,3 +125,12 @@ document.querySelectorAll('.expanded-gallery-grid img').forEach(img => {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname === '/sunset_frontend/photos.html') {
+        // Rulăm funcțiile specifice paginii de galerii
+        changeImage();
+        // Alte funcții specifice paginii...
+    }
+});
+
