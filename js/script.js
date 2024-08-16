@@ -77,9 +77,9 @@ document.querySelectorAll('.facility-item').forEach(item => {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/about.html') {
-        // Rulăm funcțiile specifice paginii de galerii
-        changeImage();
-    }
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     if (window.location.pathname === '/sunset_frontend/about.html') {
+//         // Rulăm funcțiile specifice paginii de galerii
+//         changeImage();
+//     }
+// });
