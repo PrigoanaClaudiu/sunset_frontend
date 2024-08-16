@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Încărcarea header-ului pe paginile care nu sunt index.html sau pagina principală
     if (!document.getElementById('auth-page') && window.location.pathname !== '/sunset_frontend/index.html' && window.location.pathname !== '/sunset_frontend/') {
         fetch('header.html')
             .then(response => response.text())
@@ -27,20 +28,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function plusSlides(n) {
-        // Clear the existing timer to reset it
         clearTimeout(slideTimer);
-        // Adjust the slide index
-        slideIndex += n - 1;
-        // Show the next slide
+        slideIndex += n;
+        if (slideIndex > document.getElementsByClassName("mySlides").length) { slideIndex = 1 }
+        if (slideIndex < 1) { slideIndex = document.getElementsByClassName("mySlides").length }
         showSlides();
     }
 
-    // Initialize the slideshow
-    showSlides();
-
+    // Inițializează slideshow-ul doar dacă există elemente cu clasa "mySlides"
+    if (document.getElementsByClassName("mySlides").length > 0) {
+        showSlides();
+    }
 
     // facilities page
-    if (document.getElementById('facility-img')) {
+    if (document.getElementById('facility-img') && window.location.pathname === '/sunset_frontend/about.html') {
         const facilityImages = [
             "../images/ciubar.jpeg",
             "../images/piscina.jpg",
@@ -85,4 +86,3 @@ document.addEventListener('DOMContentLoaded', function () {
         // Inițializează schimbarea automată a imaginilor
         changeImage();
     }
-});
