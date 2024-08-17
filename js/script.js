@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Determină calea corectă către header.html în funcție de locația paginii curente
-    let path = window.location.pathname.includes('index.html') ? './pages/header.html' : '../pages/header.html';
-    
+    let path;
+    if (window.location.pathname.endsWith('index.html')) {
+        path = './pages/header.html';
+    } else {
+        path = '../pages/header.html';
+    }
+
     // Încarcă header-ul dinamic
     fetch(path)
         .then(response => response.text())
@@ -13,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function updateAuthButton() {
-    const authButton = document.getElementById('auth-button');
+    const authButton = document.querySelector('nav ul li a[href="login.html"]');
     const token = localStorage.getItem('token');
 
     if (authButton && token) {
@@ -29,7 +34,9 @@ function updateAuthButton() {
     }
 }
 
-// Funcționalitatea pentru slideshow
+// Restul funcționalităților rămân neschimbate...
+
+/* slideshow */
 let slideIndex = 0;
 let slideTimer;
 
@@ -56,12 +63,12 @@ function plusSlides(n) {
 
 showSlides();
 
-// Funcționalitatea pentru schimbarea imaginilor la facilități
+// facilities
 const facilityImages = [
-    "./images/ciubar.jpeg",
-    "./images/piscina.jpg",
-    "./images/bucatarie.jpeg",
-    "./images/gratar.jpg"
+    "../images/ciubar.jpeg",
+    "../images/piscina.jpg",
+    "../images/bucatarie.jpeg",
+    "../images/gratar.jpg"
 ];
 
 let currentIndex = 0;
@@ -87,4 +94,10 @@ document.querySelectorAll('.facility-item').forEach(item => {
         autoChange = false;  
         clearInterval(imageInterval); 
     });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname === '/sunset_frontend/about.html') {
+        changeImage();
+    }
 });
