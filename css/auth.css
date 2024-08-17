@@ -3,11 +3,12 @@
 /* Stiluri generale pentru containerul de autentificare */
 .auth-container {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 100px auto; /* Mutăm containerul mai jos */
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Necesare pentru poziționarea săgeții */
 }
 
 /* Titlul paginii de autentificare */
@@ -117,4 +118,30 @@
     .auth-container button {
         font-size: 14px;
     }
+}
+
+/* Poziționarea butonului "Back to Home" */
+.back-home-container {
+    position: absolute;
+    top: 70px; /* Plasat deasupra containerului */
+    left: 550px; /* Aliniat la marginea stângă a containerului */
+}
+
+.back-home-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.back-home-link:hover {
+    color: #007BFF; 
+}
+
+.back-home-link::before {
+    /* content: "←"; */
+    margin-right: 8px;
+    font-size: 20px;
 }
