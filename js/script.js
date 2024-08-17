@@ -61,25 +61,25 @@ const facilityImages = [
 
 let currentIndex = 0;
 let autoChange = true;
+let imageInterval;
 
 function changeImage() {
+    const facilityImg = document.getElementById('facility-img');
+    
     if (autoChange) {
-        const facilityImg = document.getElementById('facility-img');
         facilityImg.setAttribute('src', facilityImages[currentIndex]);
-        facilityImg.style.objectFit = "cover"; 
-        currentIndex = (currentIndex + 1) % facilityImages.length;
+        facilityImg.style.objectFit = "cover";  
+        currentIndex = (currentIndex + 1) % facilityImages.length; 
     }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/about.html') {
-        // Afișăm imediat prima imagine când pagina se încarcă
+    if (window.location.pathname.endsWith('about.html')) {
         const facilityImg = document.getElementById('facility-img');
         facilityImg.setAttribute('src', facilityImages[currentIndex]);
         facilityImg.style.objectFit = "cover";
-        
-        changeImage();
-        imageInterval = setInterval(changeImage, 5000);
+
+        imageInterval = setInterval(changeImage, 3000);
     }
 });
 
@@ -87,9 +87,11 @@ document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
         const facilityImg = document.getElementById('facility-img');
+        
         facilityImg.setAttribute('src', newImage);
         facilityImg.style.objectFit = "cover";
-        autoChange = false;  
+        
+        autoChange = false;
         clearInterval(imageInterval); 
     });
 });
