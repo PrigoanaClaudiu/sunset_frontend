@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    updateAuthButton(); // Actualizează butonul imediat ce pagina este încărcată
+    // Încarcă header-ul dinamic dacă nu este deja prezent
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('afterbegin', data);
+            updateAuthButton(); // Actualizează butonul după ce header-ul este adăugat
+        })
+        .catch(error => console.error('Error loading header:', error));
 });
 
 function updateAuthButton() {
-    const authButton = document.querySelector('nav ul li a[href$="login.html"]');
+    const authButton = document.querySelector('nav ul li a[href="login.html"]');
     const token = localStorage.getItem('token');
 
     if (authButton && token) {
@@ -11,18 +18,15 @@ function updateAuthButton() {
         authButton.href = "#";
         authButton.addEventListener('click', function () {
             localStorage.removeItem('token');
-            window.location.href = "../index.html";
+            window.location.href = "index.html"; // Redirecționează la index.html
         });
     } else if (authButton) {
         authButton.textContent = "Autentificare";
-        authButton.href = "login.html";
+        authButton.href = "pages/login.html";
     }
 }
 
-// Restul funcționalităților (slideshow, schimbare imagini etc.) rămân neschimbate
-
-
-// Alte funcționalități existente în script.js, dacă sunt
+// Alte funcționalități existente în script.js
 
 /* slideshow */
 let slideIndex = 0;
@@ -32,7 +36,7 @@ function showSlides() {
     let i;
     let slides = document.getElementsByClassName("mySlides");
     
-    if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
+    if (slides.length === 0) return;
     
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  
@@ -53,10 +57,10 @@ showSlides();
 
 // facilities
 const facilityImages = [
-    "../images/ciubar.jpeg",
-    "../images/piscina.jpg",
-    "../images/bucatarie.jpeg",
-    "../images/gratar.jpg"
+    "./images/ciubar.jpeg",
+    "./images/piscina.jpg",
+    "./images/bucatarie.jpeg",
+    "./images/gratar.jpg"
 ];
 
 let currentIndex = 0;
@@ -82,10 +86,4 @@ document.querySelectorAll('.facility-item').forEach(item => {
         autoChange = false;  
         clearInterval(imageInterval); 
     });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/sunset_frontend/about.html') {
-        changeImage();
-    }
 });
