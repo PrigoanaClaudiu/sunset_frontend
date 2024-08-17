@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Încarcă header-ul dinamic dacă nu este deja prezent
-    fetch('header.html')
+    // Determină calea corectă către header.html în funcție de locația paginii curente
+    let path = window.location.pathname.includes('index.html') ? './pages/header.html' : '../pages/header.html';
+    
+    // Încarcă header-ul dinamic
+    fetch(path)
         .then(response => response.text())
         .then(data => {
             document.body.insertAdjacentHTML('afterbegin', data);
@@ -10,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function updateAuthButton() {
-    const authButton = document.querySelector('nav ul li a[href="login.html"]');
+    const authButton = document.getElementById('auth-button');
     const token = localStorage.getItem('token');
 
     if (authButton && token) {
@@ -22,13 +25,11 @@ function updateAuthButton() {
         });
     } else if (authButton) {
         authButton.textContent = "Autentificare";
-        authButton.href = "pages/login.html";
+        authButton.href = "login.html";
     }
 }
 
-// Alte funcționalități existente în script.js
-
-/* slideshow */
+// Funcționalitatea pentru slideshow
 let slideIndex = 0;
 let slideTimer;
 
@@ -55,7 +56,7 @@ function plusSlides(n) {
 
 showSlides();
 
-// facilities
+// Funcționalitatea pentru schimbarea imaginilor la facilități
 const facilityImages = [
     "./images/ciubar.jpeg",
     "./images/piscina.jpg",
