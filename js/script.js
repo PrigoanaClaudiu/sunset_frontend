@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Încarcă header-ul dinamic dacă nu este deja prezent
+    if (!document.querySelector('header')) {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+                updateAuthButton(); // Actualizează butonul după ce header-ul este adăugat
+            });
+    } else {
+        updateAuthButton(); // Dacă header-ul este deja acolo, actualizează butonul direct
+    }
+});
+
+function updateAuthButton() {
     const authButton = document.querySelector('nav ul li a[href="login.html"]');
     const token = localStorage.getItem('token');
 
@@ -13,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         authButton.textContent = "Autentificare";
         authButton.href = "login.html";
     }
-});
+}
 
 // Alte funcționalități existente în script.js, dacă sunt
 
