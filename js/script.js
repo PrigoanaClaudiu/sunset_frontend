@@ -1,57 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
-    if (!document.getElementById('auth-page') && window.location.pathname !== '/sunset_frontend/index.html' && window.location.pathname !== '/sunset_frontend/') {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.body.insertAdjacentHTML('afterbegin', data);
-            });
+    const authButton = document.querySelector('nav ul li a[href="login.html"]');
+    const token = localStorage.getItem('token');
+
+    if (authButton && token) {
+        authButton.textContent = "Deconectare";
+        authButton.href = "#";
+        authButton.addEventListener('click', function () {
+            localStorage.removeItem('token');
+            window.location.href = "../index.html";
+        });
+    } else if (authButton) {
+        authButton.textContent = "Autentificare";
+        authButton.href = "login.html";
     }
 });
 
+// Alte funcționalități existente în script.js, dacă sunt
+
 /* slideshow */
-let slideIndex = 1;
+let slideIndex = 0;
 let slideTimer;
 
 function showSlides() {
+    let i;
     let slides = document.getElementsByClassName("mySlides");
-
-    if (slides.length === 0) return;
-
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-
-    if (slideIndex > slides.length) {
-        slideIndex = 1;
-    }
-    if (slideIndex < 1) {
-        slideIndex = slides.length;
-    }
-
-
-    slides[slideIndex - 1].style.display = "block";
     
-
-    slideTimer = setTimeout(() => {
-        slideIndex++;
-        showSlides();
-    }, 5000); 
+    if (slides.length === 0) return;  // Oprește funcția dacă nu există elemente cu clasa "mySlides"
+    
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    slides[slideIndex-1].style.display = "block";  
+    slideTimer = setTimeout(showSlides, 5000); 
 }
 
 function plusSlides(n) {
     clearTimeout(slideTimer);
-
-    slideIndex += n;
-
+    slideIndex += n - 1;
     showSlides();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    showSlides();
-});
+showSlides();
 
-
-// facility - about page
+// facilities
 const facilityImages = [
     "../images/ciubar.jpeg",
     "../images/piscina.jpg",
@@ -61,67 +54,31 @@ const facilityImages = [
 
 let currentIndex = 0;
 let autoChange = true;
-let imageInterval;
 
 function changeImage() {
-    const facilityImg = document.getElementById('facility-img');
-    
     if (autoChange) {
+        const facilityImg = document.getElementById('facility-img');
         facilityImg.setAttribute('src', facilityImages[currentIndex]);
-        facilityImg.style.objectFit = "cover";  
-        currentIndex = (currentIndex + 1) % facilityImages.length; 
+        facilityImg.style.objectFit = "cover"; 
+        currentIndex = (currentIndex + 1) % facilityImages.length;
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname.endsWith('about.html')) {
-        const facilityImg = document.getElementById('facility-img');
-        facilityImg.setAttribute('src', facilityImages[currentIndex]);
-        facilityImg.style.objectFit = "cover";
-
-        imageInterval = setInterval(changeImage, 3000);
-    }
-});
+let imageInterval = setInterval(changeImage, 4000);
 
 document.querySelectorAll('.facility-item').forEach(item => {
     item.addEventListener('click', function() {
         const newImage = this.getAttribute('data-image');
         const facilityImg = document.getElementById('facility-img');
-        
         facilityImg.setAttribute('src', newImage);
         facilityImg.style.objectFit = "cover";
-        
-        autoChange = false;
+        autoChange = false;  
         clearInterval(imageInterval); 
     });
 });
 
-// autentificare / deconectare
 document.addEventListener('DOMContentLoaded', function () {
-    // Asigură-te că header-ul este inclus în pagină
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.body.insertAdjacentHTML('afterbegin', data);
-            updateAuthButton(); // Rulează funcția după ce header-ul este inclus
-        });
-});
-
-function updateAuthButton() {
-    const authButton = document.querySelector('nav ul li a[href="login.html"]');
-    const token = localStorage.getItem('token');
-
-    if (authButton) {
-        if (token) {
-            authButton.textContent = "Deconectare";
-            authButton.href = "#";
-            authButton.addEventListener('click', function () {
-                localStorage.removeItem('token');
-                window.location.href = "../index.html";
-            });
-        } else {
-            authButton.textContent = "Autentificare";
-            authButton.href = "login.html";
-        }
+    if (window.location.pathname === '/sunset_frontend/about.html') {
+        changeImage();
     }
-}
+});
