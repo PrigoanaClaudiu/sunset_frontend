@@ -98,21 +98,30 @@ document.querySelectorAll('.facility-item').forEach(item => {
 
 // autentificare / deconectare
 document.addEventListener('DOMContentLoaded', function () {
-    // Verificăm dacă utilizatorul este autentificat
+    // Asigură-te că header-ul este inclus în pagină
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('afterbegin', data);
+            updateAuthButton(); // Rulează funcția după ce header-ul este inclus
+        });
+});
+
+function updateAuthButton() {
     const authButton = document.querySelector('nav ul li a[href="login.html"]');
     const token = localStorage.getItem('token');
 
-    if (token) {
-        // Schimbăm butonul "Autentificare" în "Deconectare"
-        authButton.textContent = "Deconectare";
-        authButton.href = "#"; // Oprim navigarea implicită
-        authButton.addEventListener('click', function () {
-            // Deconectare: ștergem token-ul JWT și redirecționăm la pagina principală
-            localStorage.removeItem('token');
-            window.location.href = "../index.html";
-        });
-    } else {
-        authButton.textContent = "Autentificare";
-        authButton.href = "login.html";
+    if (authButton) {
+        if (token) {
+            authButton.textContent = "Deconectare";
+            authButton.href = "#";
+            authButton.addEventListener('click', function () {
+                localStorage.removeItem('token');
+                window.location.href = "../index.html";
+            });
+        } else {
+            authButton.textContent = "Autentificare";
+            authButton.href = "login.html";
+        }
     }
-});
+}
