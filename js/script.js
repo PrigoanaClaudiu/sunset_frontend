@@ -95,3 +95,24 @@ document.querySelectorAll('.facility-item').forEach(item => {
         clearInterval(imageInterval); 
     });
 });
+
+// autentificare / deconectare
+document.addEventListener('DOMContentLoaded', function () {
+    // Verificăm dacă utilizatorul este autentificat
+    const authButton = document.querySelector('nav ul li a[href="login.html"]');
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        // Schimbăm butonul "Autentificare" în "Deconectare"
+        authButton.textContent = "Deconectare";
+        authButton.href = "#"; // Oprim navigarea implicită
+        authButton.addEventListener('click', function () {
+            // Deconectare: ștergem token-ul JWT și redirecționăm la pagina principală
+            localStorage.removeItem('token');
+            window.location.href = "../index.html";
+        });
+    } else {
+        authButton.textContent = "Autentificare";
+        authButton.href = "login.html";
+    }
+});

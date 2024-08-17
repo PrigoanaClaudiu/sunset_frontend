@@ -25,8 +25,9 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
+                // Stocăm token-ul JWT
                 localStorage.setItem('token', data.access_token);
-                window.location.href = '../index.html';
+                window.location.href = '../index.html'; // Redirecționează la pagina principală
             } else {
                 handleErrorMessage(data);
             }
@@ -79,7 +80,6 @@ function handleErrorMessage(data) {
     if (data.detail) {
         errorMessage = data.detail;
     } else if (typeof data === 'object') {
-        // Verificăm dacă `data` este un obiect și extragem mesajele de eroare
         errorMessage = Object.values(data).join(', ');
     } else {
         errorMessage = 'Registration failed';
