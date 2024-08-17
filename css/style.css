@@ -61,7 +61,7 @@ nav ul li a.reserve-btn {
 .slideshow-container {
     position: relative;
     margin: auto;
-    max-width: 1100px; /* Ajustează după cum dorești */
+    max-width: 1000px; /* Ajustează după cum dorești */
 }
 
 /* Hide the images by default */
@@ -125,7 +125,7 @@ body, html {
 
 .slideshow-container {
     flex: 3;
-    margin-right: 55px; /* Spațiu între slideshow și containerul de informații */
+    margin-right: 110px; /* Spațiu între slideshow și containerul de informații */
     margin-left: 0; 
     padding: 0; 
     height: auto; 

@@ -1,63 +1,90 @@
 // auth.js
 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
+// URL-urile pentru autentificare și înregistrare
+const loginUrl = 'https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/login';
+const registerUrl = 'https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/users';
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+// Gestionarea procesului de Login
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
 
-    try {
-        const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        });
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-        const data = await response.json();
+        try {
+            const response = await fetch(loginUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ username: email, password: password }),
+            });
 
-        if (response.ok) {
-            localStorage.setItem('token', data.access_token);
-            window.location.href = 'index.html';  // Redirecționează utilizatorul la pagina principală
-        } else {
-            document.getElementById('error-message').innerText = data.detail || 'Login failed';
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.access_token);
+                window.location.href = '../index.html';
+            } else {
+                handleErrorMessage(data);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
             document.getElementById('error-message').style.display = 'block';
         }
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').innerText = 'An error occurred';
-        document.getElementById('error-message').style.display = 'block';
-    }
-});
+    });
+}
 
-document.getElementById('registerForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
+// Gestionarea procesului de Înregistrare
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+    registerForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-    try {
-        const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, email, password }),
-        });
+        try {
+            const response = await fetch(registerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name, email: email, password: password }),
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (response.ok) {
-            window.location.href = 'login.html';  // Redirecționează utilizatorul la pagina de login
-        } else {
-            document.getElementById('error-message').innerText = data.detail || 'Registration failed';
+            if (response.ok) {
+                window.location.href = 'login.html';
+            } else {
+                handleErrorMessage(data);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
             document.getElementById('error-message').style.display = 'block';
         }
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').innerText = 'An error occurred';
-        document.getElementById('error-message').style.display = 'block';
+    });
+}
+
+// Funcție pentru gestionarea mesajelor de eroare
+function handleErrorMessage(data) {
+    let errorMessage = '';
+
+    if (data.detail) {
+        errorMessage = data.detail;
+    } else if (typeof data === 'object') {
+        // Verificăm dacă `data` este un obiect și extragem mesajele de eroare
+        errorMessage = Object.values(data).join(', ');
+    } else {
+        errorMessage = 'Registration failed';
     }
-});
+
+    document.getElementById('error-message').innerText = errorMessage;
+    document.getElementById('error-message').style.display = 'block';
+}
