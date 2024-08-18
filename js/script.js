@@ -1,9 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
-    loadHeader();
-});
-
 function loadHeader() {
-    fetch('pages/header.html')
+    let headerPath = '';
+    if (window.location.pathname.includes('/pages/')) {
+        headerPath = '/sunset_frontend/pages/header.html';
+    } else {
+        headerPath = '/sunset_frontend/pages/header.html';
+    }
+
+    fetch(headerPath)
         .then(response => response.text())
         .then(data => {
             document.getElementById('header-container').innerHTML = data;
