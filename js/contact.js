@@ -55,7 +55,7 @@
 //         document.getElementById('error-message').style.display = 'block';
 //     }
 // }
-
+console.log('contact.js script is running');
 document.addEventListener("DOMContentLoaded", function() {
     updateAuthState();  // Adjust the form based on the user's authentication state
 
