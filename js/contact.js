@@ -181,3 +181,35 @@ document.getElementById('phone').addEventListener('input', function() {
     const errorMessage = document.getElementById('error-message');
     errorMessage.style.display = 'none';
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const token = localStorage.getItem('token');
+    const nameField = document.getElementById('name');
+    const emailField = document.getElementById('email');
+
+    if (token) {
+        const storedName = localStorage.getItem('user_name');
+        const storedEmail = localStorage.getItem('user_email');
+
+        if (storedName && nameField) {
+            nameField.value = storedName;
+            nameField.disabled = true; // Disable the name field so it's not editable
+            nameField.style.display = 'block'; // Ensure it's visible
+        }
+
+        if (storedEmail && emailField) {
+            emailField.value = storedEmail;
+            emailField.disabled = true; // Disable the email field so it's not editable
+            emailField.style.display = 'block'; // Ensure it's visible
+        }
+    } else {
+        // If unauthenticated, ensure fields are editable and required
+        nameField.removeAttribute('disabled');
+        nameField.setAttribute('required', 'true');
+        nameField.style.display = 'block'; // Ensure it's visible
+
+        emailField.removeAttribute('disabled');
+        emailField.setAttribute('required', 'true');
+        emailField.style.display = 'block'; // Ensure it's visible
+    }
+});
