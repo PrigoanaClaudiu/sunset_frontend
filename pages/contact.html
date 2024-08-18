@@ -34,16 +34,17 @@
 
     <!-- Dynamic Header Loading Script -->
     <script>
-        fetch('/sunset_frontend/pages/header.html')
+         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
-                // Load auth.js after header is loaded
+                // Generate a unique URL for auth.js to prevent caching
+                var timestamp = new Date().getTime();
                 var authScript = document.createElement('script');
-                authScript.src = '/sunset_frontend/js/auth.js';
+                authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
                 authScript.onload = function() {
-                    updateAuthButton(); // Ensure the header is updated
+                    updateAuthButton();  // Call this function after auth.js is loaded
                 };
                 document.body.appendChild(authScript);
 
