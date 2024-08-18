@@ -96,6 +96,16 @@ async function submitContactForm() {
     const phoneField = document.getElementById('phone');
     const messageField = document.getElementById('message');
 
+    // Phone number validation
+    const phoneNumber = phoneField.value;
+    const phoneRegex = /^\d{10}$/;  // Regular expression to match exactly 10 digits
+
+    if (!phoneRegex.test(phoneNumber)) {
+        document.getElementById('error-message').innerText = 'Numărul de telefon trebuie să conțină exact 10 cifre.';
+        document.getElementById('error-message').style.display = 'block';
+        return;  // Stop the form submission if the phone number is invalid
+    }
+
     if (token) {
         const storedName = localStorage.getItem('user_name');
         const storedEmail = localStorage.getItem('user_email');
@@ -131,7 +141,7 @@ async function submitContactForm() {
             // Hide the form and display success message
             document.getElementById('contactForm').style.display = 'none';
             const successMessage = document.getElementById('success-message');
-            successMessage.innerText = 'Mesaj trimis cu succes!';
+            successMessage.innerHTML = 'Mesaj trimis cu succes!<br>Veți fi redirecționat!';
             successMessage.style.display = 'block';
 
             // Redirect to the homepage after 3 seconds
@@ -148,4 +158,5 @@ async function submitContactForm() {
         document.getElementById('error-message').style.display = 'block';
     }
 }
+
 
