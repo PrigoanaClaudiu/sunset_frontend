@@ -1,12 +1,26 @@
-document.addEventListener('DOMContentLoaded', function () {
-    if (!document.getElementById('auth-page')) {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.body.insertAdjacentHTML('afterbegin', data);
-            });
-    }
+document.addEventListener("DOMContentLoaded", function() {
+    loadHeader();
 });
+
+function loadHeader() {
+    fetch('pages/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+}
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     if (!document.getElementById('auth-page')) {
+//         fetch('header.html')
+//             .then(response => response.text())
+//             .then(data => {
+//                 document.body.insertAdjacentHTML('afterbegin', data);
+//             });
+//     }
+// });
 /* slideshow */
 let slideIndex = 1;
 let slideTimer;
