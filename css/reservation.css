@@ -1,4 +1,38 @@
-/* reservation.css */
+.reservation-form {
+    margin-top: 20px;
+    max-width: 600px; /* Adjust form width */
+    margin: auto;
+    background-color: #f7f7f7; /* Background for form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input and Select Fields */
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px; /* Add more space between fields */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.reservation-form textarea {
+    height: 100px;
+    resize: none; /* Prevent textarea resizing */
+}
+
+/* Date Picker Fields */
+#data_start, #data_finish {
+    background-color: #fff; /* Ensure background color for date picker fields */
+    cursor: pointer;
+}
+
 .calendar-container {
     max-width: 300px;
     margin: auto;
@@ -12,17 +46,66 @@
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Formular de rezervare */
-.reservation-form {
-    margin-top: 20px;
-}
-
-.reservation-form input,
-.reservation-form select {
+/* Button Styling */
+.reservation-form button {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
+.reservation-form button:hover {
+    background-color: #45a049;
+}
+
+/* Error and Success Messages */
+#error-message, #success-message {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+#success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Headings */
+main h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .reservation-form {
+        padding: 15px;
+    }
+
+    .reservation-form input,
+    .reservation-form select,
+    .reservation-form textarea {
+        font-size: 14px;
+    }
+
+    .reservation-form button {
+        font-size: 14px;
+    }
+}

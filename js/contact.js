@@ -1,4 +1,3 @@
-console.log('contact.js script is running');
 document.addEventListener("DOMContentLoaded", function() {
     updateAuthState();  // Adjust the form based on the user's authentication state
 
@@ -89,7 +88,6 @@ function updateAuthState() {
 
 async function submitContactForm() {
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Debug: Check if the token is retrieved
 
     // Collect the data from the form
     const nameField = document.getElementById('name');
