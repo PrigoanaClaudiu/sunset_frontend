@@ -1,15 +1,25 @@
+document.addEventListener("DOMContentLoaded", function() {
+    loadHeader();
+});
+
 function loadHeader() {
-    let headerPath = '';
-    if (window.location.pathname.includes('/pages/')) {
-        headerPath = '/sunset_frontend/pages/header.html';
-    } else {
-        headerPath = '/sunset_frontend/pages/header.html';
-    }
+    // Use an absolute path to ensure it's correct regardless of the current page
+    const headerPath = '/sunset_frontend/pages/header.html';
 
     fetch(headerPath)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
         .then(data => {
-            document.getElementById('header-container').innerHTML = data;
+            const headerContainer = document.getElementById('header-container');
+            if (headerContainer) {
+                headerContainer.innerHTML = data;
+            } else {
+                console.error('Header container not found.');
+            }
         })
         .catch(error => console.error('Error loading header:', error));
 }
