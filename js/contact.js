@@ -116,12 +116,13 @@ async function submitContactForm() {
     
         if (storedName && nameField) {
             nameField.value = storedName;
-            nameField.readOnly = true; // Make the name field read-only
+            nameField.style.display = 'none'; // Hide the name field
+            nameField.removeAttribute('required'); // Remove the required attribute
         }
         if (storedEmail && emailField) {
             emailField.value = storedEmail;
-            emailField.readOnly = true; // Make the email field read-only
-            emailField.style.display = 'block'; // Ensure the field is visible
+            emailField.style.display = 'none'; // Hide the email field
+            emailField.removeAttribute('required'); // Remove the required attribute
         }
     }
     
