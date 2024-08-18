@@ -82,14 +82,12 @@ function updateAuthButton() {
     }
 }
 
-// Function to handle user logout
 function logoutUser(event) {
     event.preventDefault();
     localStorage.removeItem('token');
     updateAuthButton();  // Update the button back to login state
     window.location.href = '/sunset_frontend/index.html';  // Redirect to homepage
 }
-
 
 // Handling the login process
 const loginForm = document.getElementById('loginForm');

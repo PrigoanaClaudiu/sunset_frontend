@@ -83,7 +83,17 @@
         </div>
 
     </main>
+    <script>
+        fetch('/sunset_frontend/pages/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+
+                // After header is loaded, call the auth script's function directly
+                updateAuthButton();  // This is now called directly after header is loaded
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
     <script src="/sunset_frontend/js/script.js"></script>
-    <script src="/sunset_frontend/js/auth.js"></script>
 </body>
 </html>
