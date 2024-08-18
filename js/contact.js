@@ -116,7 +116,7 @@ async function submitContactForm() {
             document.getElementById('contactForm').reset();
         } else {
             console.error('Error Response Data:', responseData);
-            document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
+            document.getElementById('error-message').innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
             document.getElementById('error-message').style.display = 'block';
         }
     } catch (error) {
