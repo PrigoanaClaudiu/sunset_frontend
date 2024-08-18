@@ -14,36 +14,50 @@
 
     <main>
         <h2>Rezervați acum</h2>
-        <form id="reservationForm">
+        <form id="reservationForm" class="reservation-form">
             <div id="unauthenticated-fields">
                 <label for="name">Nume complet:</label>
                 <input type="text" id="name" name="name" placeholder="Nume complet" required>
-
+            </div>
+    
+            <div id="unauthenticated-fields">
                 <label for="email">Adresa email:</label>
                 <input type="email" id="email" name="email" placeholder="Adresa email" required>
             </div>
-
-            <label for="phone">Telefon:</label>
-            <input type="tel" id="phone" name="phone" placeholder="Telefon" required>
-
-            <label for="no_pers">Număr de persoane:</label>
-            <input type="number" id="no_pers" name="no_pers" placeholder="Număr de persoane" min="1" required>
-
-            <label for="data_start">Data check-in:</label>
-            <input type="text" id="data_start" name="data_start" placeholder="Din data" required>
-
-            <label for="data_finish">Data check-out:</label>
-            <input type="text" id="data_finish" name="data_finish" placeholder="Până în data" required>
-
+    
+            <div class="form-group">
+                <div class="form-control">
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Telefon" required>
+                </div>
+                <div class="form-control">
+                    <label for="no_pers">Număr de persoane:</label>
+                    <input type="number" id="no_pers" name="no_pers" placeholder="Număr de persoane" min="1" required>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="form-control">
+                    <label for="data_start">Data check-in:</label>
+                    <input type="text" id="data_start" name="data_start" placeholder="Din data" required>
+                </div>
+                <div class="form-control">
+                    <label for="data_finish">Data check-out:</label>
+                    <input type="text" id="data_finish" name="data_finish" placeholder="Până în data" required>
+                </div>
+            </div>
+    
             <label for="details">Alte detalii:</label>
             <textarea id="details" name="details" placeholder="Optional..."></textarea>
-
+    
             <button type="submit">Rezervă acum</button>
         </form>
-
+    
         <p id="error-message" style="display:none; color: red;"></p>
         <p id="success-message" style="display:none; color: green;"></p>
     </main>
+
+    
     <script>
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
