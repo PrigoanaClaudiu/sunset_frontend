@@ -95,16 +95,20 @@ async function submitContactForm() {
     const emailField = document.getElementById('email');
     const phoneField = document.getElementById('phone');
     const messageField = document.getElementById('message');
+    const errorMessage = document.getElementById('error-message');
 
     // Phone number validation
     const phoneNumber = phoneField.value;
     const phoneRegex = /^\d{10}$/;  // Regular expression to match exactly 10 digits
 
     if (!phoneRegex.test(phoneNumber)) {
-        document.getElementById('error-message').innerText = 'Numărul de telefon trebuie să conțină exact 10 cifre.';
-        document.getElementById('error-message').style.display = 'block';
+        errorMessage.innerText = 'Numărul de telefon trebuie să conțină exact 10 cifre.';
+        errorMessage.style.display = 'block';
         return;  // Stop the form submission if the phone number is invalid
     }
+
+    // Clear the error message if the phone number is valid
+    errorMessage.style.display = 'none';
 
     if (token) {
         const storedName = localStorage.getItem('user_name');
@@ -149,14 +153,20 @@ async function submitContactForm() {
                 window.location.href = '/sunset_frontend/index.html';
             }, 3000);
         } else {
-            document.getElementById('error-message').innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
-            document.getElementById('error-message').style.display = 'block';
+            errorMessage.innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
+            errorMessage.style.display = 'block';
         }
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
-        document.getElementById('error-message').style.display = 'block';
+        errorMessage.innerText = 'An unexpected error occurred. Please try again later.';
+        errorMessage.style.display = 'block';
     }
 }
+
+// Event listener to clear the error message when the user corrects the phone number
+document.getElementById('phone').addEventListener('input', function() {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.style.display = 'none';
+});
 
 
