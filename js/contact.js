@@ -113,14 +113,18 @@ async function submitContactForm() {
     if (token) {
         const storedName = localStorage.getItem('user_name');
         const storedEmail = localStorage.getItem('user_email');
-
+    
         if (storedName && nameField) {
             nameField.value = storedName;
+            nameField.readOnly = true; // Make the name field read-only
         }
         if (storedEmail && emailField) {
             emailField.value = storedEmail;
+            emailField.readOnly = true; // Make the email field read-only
+            emailField.style.display = 'block'; // Ensure the field is visible
         }
     }
+    
 
     const contactData = {
         name: nameField ? nameField.value : "",
