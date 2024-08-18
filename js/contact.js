@@ -1,60 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function() {
-//     updateAuthState();  // Adjust the form based on the user's authentication state
-
-//     const contactForm = document.getElementById('contactForm');
-//     contactForm.addEventListener('submit', async function(event) {
-//         event.preventDefault();
-//         await submitContactForm();
-//     });
-// });
-
-// function updateAuthState() {
-//     const token = localStorage.getItem('token');
-//     const unauthenticatedFields = document.getElementById('unauthenticated-fields');
-
-//     if (token) {
-//         unauthenticatedFields.style.display = 'none';  // Hide name and email fields for authenticated users
-//     } else {
-//         unauthenticatedFields.style.display = 'block';  // Show name and email fields for unauthenticated users
-//     }
-// }
-
-// async function submitContactForm() {
-//     const token = localStorage.getItem('token');
-
-//     const contactData = {
-//         name: document.getElementById('name') ? document.getElementById('name').value : null,
-//         email: document.getElementById('email') ? document.getElementById('email').value : null,
-//         phone: document.getElementById('phone').value,
-//         message: document.getElementById('message').value
-//     };
-
-//     try {
-//         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 ...(token && { 'Authorization': `Bearer ${token}` })
-//             },
-//             body: JSON.stringify(contactData)
-//         });
-
-//         const responseData = await response.json();
-
-//         if (response.ok) {
-//             document.getElementById('success-message').style.display = 'block';
-//             document.getElementById('error-message').style.display = 'none';
-//             document.getElementById('contactForm').reset();
-//         } else {
-//             document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
-//             document.getElementById('error-message').style.display = 'block';
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
-//         document.getElementById('error-message').style.display = 'block';
-//     }
-// }
 console.log('contact.js script is running');
 document.addEventListener("DOMContentLoaded", function() {
     updateAuthState();  // Adjust the form based on the user's authentication state
@@ -89,6 +32,51 @@ function updateAuthState() {
     }
 }
 
+// async function submitContactForm() {
+//     const token = localStorage.getItem('token');
+
+//     // Collect the data from the form
+//     const nameField = document.getElementById('name');
+//     const emailField = document.getElementById('email');
+//     const phoneField = document.getElementById('phone');
+//     const messageField = document.getElementById('message');
+
+//     const contactData = {
+//         name: nameField ? nameField.value : "",  // Ensure name is always provided
+//         email: emailField ? emailField.value : "",  // Ensure email is always provided
+//         phone_nr: phoneField.value,  // Use 'phone_nr' as this is the expected field name
+//         message: messageField.value
+//     };
+
+//     // Log the final contact data being sent
+//     console.log('Sending contact data:', contactData);
+
+//     try {
+//         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 ...(token && { 'Authorization': `Bearer ${token}` })
+//             },
+//             body: JSON.stringify(contactData)
+//         });
+
+//         const responseData = await response.json();
+
+//         if (response.ok) {
+//             document.getElementById('success-message').style.display = 'block';
+//             document.getElementById('error-message').style.display = 'none';
+//             document.getElementById('contactForm').reset();
+//         } else {
+//             document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
+//             document.getElementById('error-message').style.display = 'block';
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
+//         document.getElementById('error-message').style.display = 'block';
+//     }
+// }
 async function submitContactForm() {
     const token = localStorage.getItem('token');
 
@@ -105,8 +93,10 @@ async function submitContactForm() {
         message: messageField.value
     };
 
-    // Log the final contact data being sent
-    console.log('Sending contact data:', contactData);
+    // Log the final contact data being sent (specifically for authenticated users)
+    if (token) {
+        console.log('Authenticated user - Sending contact data:', contactData);
+    }
 
     try {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
@@ -125,6 +115,7 @@ async function submitContactForm() {
             document.getElementById('error-message').style.display = 'none';
             document.getElementById('contactForm').reset();
         } else {
+            console.error('Error Response Data:', responseData);
             document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
             document.getElementById('error-message').style.display = 'block';
         }
