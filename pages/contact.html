@@ -9,10 +9,9 @@
 </head>
 <body>
     <div id="header-container"></div>
-
     <main>
         <h1>Contact Us</h1>
-        <form id="contactForm">
+        <form id="contactForm" novalidate>
             <div id="unauthenticated-fields">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -33,6 +32,29 @@
         <p id="error-message" style="display:none; color: red;"></p>
     </main>
 
+    <!-- <main>
+        <h1>Contact Us</h1>
+        <form id="contactForm">
+            <div id="unauthenticated-fields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="success-message" style="display:none; color: green;">Your message has been sent successfully!</p>
+        <p id="error-message" style="display:none; color: red;"></p>
+    </main> -->
+
     <!-- Dynamic Header Loading Script -->
     <script>
         fetch('/sunset_frontend/pages/header.html')
@@ -48,10 +70,11 @@
                     updateAuthButton();  // Call this function after auth.js is loaded
                 };
                 document.body.appendChild(authScript);
-
-                var contactScript = document.createElement('script');
-                contactScript.src = '/sunset_frontend/js/contact.js';
-                document.body.appendChild(contactScript);
+                
+                // NU MAI AM NEVOIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                // var contactScript = document.createElement('script');
+                // contactScript.src = '/sunset_frontend/js/contact.js';
+                // document.body.appendChild(contactScript);
             })
             .catch(error => console.error('Error loading header:', error));
     </script>

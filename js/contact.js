@@ -92,12 +92,23 @@ function updateAuthState() {
 async function submitContactForm() {
     const token = localStorage.getItem('token');
 
+    // Collect data only if the fields are visible
+    const nameField = document.getElementById('name');
+    const emailField = document.getElementById('email');
+
     const contactData = {
-        name: document.getElementById('name') ? document.getElementById('name').value : null,
-        email: document.getElementById('email') ? document.getElementById('email').value : null,
+        name: nameField && nameField.style.display !== 'none' ? nameField.value : null,
+        email: emailField && emailField.style.display !== 'none' ? emailField.value : null,
         phone: document.getElementById('phone').value,
         message: document.getElementById('message').value
     };
+
+    // Remove fields that are null
+    Object.keys(contactData).forEach(key => {
+        if (contactData[key] === null) {
+            delete contactData[key];
+        }
+    });
 
     try {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
