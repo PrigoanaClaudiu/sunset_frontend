@@ -2,8 +2,39 @@ const loginUrl = 'https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/login';
 const registerUrl = 'https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/users';
 
 // Function to update the authentication button
+// document.addEventListener("DOMContentLoaded", function() {
+//     updateAuthButton(); // Call this to update the button on page load
+// });
+
+// function updateAuthButton() {
+//     const token = localStorage.getItem('token');
+//     const authButton = document.getElementById('auth-button');
+
+//     if (!authButton) {
+//         console.error('auth-button element not found in the DOM.');
+//         return; // Exit the function if authButton is not found
+//     }
+
+//     if (token) {
+//         authButton.textContent = 'DECONECTARE';
+//         authButton.setAttribute('href', '#');
+//         authButton.onclick = function(event) {
+//             event.preventDefault();
+//             logoutUser();
+//         };
+//     } else {
+//         authButton.textContent = 'AUTENTIFICARE';
+//         authButton.setAttribute('href', '/sunset_frontend/pages/login.html');
+//     }
+// }
+
+// function logoutUser() {
+//     localStorage.removeItem('token');
+//     updateAuthButton();  // Update the button back to login state
+//     window.location.href = '/sunset_frontend/index.html';  // Redirect to homepage
+// }
 document.addEventListener("DOMContentLoaded", function() {
-    updateAuthButton(); // Call this to update the button on page load
+    updateAuthButton();
 });
 
 function updateAuthButton() {
