@@ -1,9 +1,27 @@
+/* General Styling for Reservation Page */
+.reservation-title {
+    text-align: center;
+    color: #333;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.reservation-note {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
 /* General Form Styles */
 .reservation-form {
     margin-top: 20px;
-    max-width: 600px; /* Adjust form width */
+    max-width: 600px; 
     margin: auto;
-    background-color: #f7f7f7; /* Background for form */
+    background-color: #ffad20; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -37,12 +55,12 @@
 
 .reservation-form textarea {
     height: 100px;
-    resize: none; /* Prevent textarea resizing */
+    resize: none;
 }
 
 /* Date Picker Fields */
 #data_start, #data_finish {
-    background-color: #fff; /* Ensure background color for date picker fields */
+    background-color: #fff;
     cursor: pointer;
 }
 
@@ -82,15 +100,6 @@
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
-}
-
-/* Headings */
-main h2 {
-    text-align: center;
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
 }
 
 /* Responsive Design */
