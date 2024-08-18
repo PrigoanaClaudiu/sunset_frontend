@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <title>Contact - Cabana Sunset</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Link to your main CSS file -->
+    <link rel="stylesheet" href="../css/contact.css">
 </head>
 <body>
     <div id="header-container"></div>
+
     <main>
-        <h1>Contact</h1>
-        <form id="contact-form">
-            <label for="name">Nume:</label>
-            <input type="text" id="name" name="name" required><br>
+        <h1>Contact Us</h1>
+        <form id="contactForm">
+            <!-- Name and Email Fields for Unauthenticated Users -->
+            <div id="unauthenticated-fields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-            <label for="message">Mesaj:</label>
-            <textarea id="message" name="message" required></textarea><br>
+            <!-- Phone Number (Visible to All Users) -->
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
 
-            <button type="submit">Trimite</button>
+            <!-- Message (Visible to All Users) -->
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Send Message</button>
         </form>
+        <p id="success-message" style="display:none; color: green;">Your message has been sent successfully!</p>
+        <p id="error-message" style="display:none; color: red;"></p>
     </main>
+
+    <!-- Dynamic Header Loading Script -->
     <script>
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
-                // Generate a unique URL for auth.js to prevent caching
-                var timestamp = new Date().getTime();
+                // Load auth.js after header is loaded
                 var authScript = document.createElement('script');
-                authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
-                authScript.onload = function() {
-                    updateAuthButton();  // Call this function after auth.js is loaded
-                };
+                authScript.src = '/sunset_frontend/js/auth.js';
                 document.body.appendChild(authScript);
+
+                // Load contact.js to handle form submission and authentication state
+                var contactScript = document.createElement('script');
+                contactScript.src = '/sunset_frontend/js/contact.js';
+                document.body.appendChild(contactScript);
             })
             .catch(error => console.error('Error loading header:', error));
     </script>
-
-    <script src="/sunset_frontend/js/script.js"></script>
 </body>
 </html>
+
