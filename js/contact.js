@@ -86,6 +86,20 @@ async function submitContactForm() {
     const phoneField = document.getElementById('phone');
     const messageField = document.getElementById('message');
 
+    // For authenticated users, populate the name and email fields with stored values if they are hidden
+    if (token) {
+        const storedName = localStorage.getItem('user_name');  // Assuming you store the user's name at login
+        const storedEmail = localStorage.getItem('user_email');  // Assuming you store the user's email at login
+        
+        // Only override if fields are empty
+        if (nameField && !nameField.value) {
+            nameField.value = storedName || "";  // Use the stored name
+        }
+        if (emailField && !emailField.value) {
+            emailField.value = storedEmail || "";  // Use the stored email
+        }
+    }
+
     const contactData = {
         name: nameField ? nameField.value : "",  // Ensure name is always provided
         email: emailField ? emailField.value : "",  // Ensure email is always provided
