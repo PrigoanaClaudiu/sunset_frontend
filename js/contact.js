@@ -89,6 +89,7 @@ function updateAuthState() {
 
 async function submitContactForm() {
     const token = localStorage.getItem('token');
+    console.log('Token:', token); // Debug: Check if the token is retrieved
 
     // Collect the data from the form
     const nameField = document.getElementById('name');
@@ -101,11 +102,15 @@ async function submitContactForm() {
         const storedName = localStorage.getItem('user_name');
         const storedEmail = localStorage.getItem('user_email');
 
+        console.log('Stored Name:', storedName); // Debug: Check if name is retrieved
+        console.log('Stored Email:', storedEmail); // Debug: Check if email is retrieved
+
         // Handle name field
         if (storedName && nameField) {
             nameField.value = storedName;
             nameField.disabled = true;  // Disable the name field
             nameField.removeAttribute('required'); // Remove the required attribute
+            nameField.style.display = 'block'; // Ensure the field is visible
         }
 
         // Handle email field
@@ -113,6 +118,7 @@ async function submitContactForm() {
             emailField.value = storedEmail;
             emailField.disabled = true;  // Disable the email field
             emailField.removeAttribute('required'); // Remove the required attribute
+            emailField.style.display = 'block'; // Ensure the field is visible
         }
     }
 
