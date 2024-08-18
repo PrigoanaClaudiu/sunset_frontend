@@ -14,7 +14,7 @@
         <p>Formular pentru rezervări.</p>
     </main>
 
-    <!-- Load header.html dynamically -->
+    <!-- Load header.html dynamically
     <script>
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
@@ -30,6 +30,36 @@
                 authScript.onload = function() {
                     updateAuthButton();  // Call this function after auth.js is loaded
                 };
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script> -->
+    <script>
+        function waitForElement(selector, callback) {
+            var element = document.querySelector(selector);
+            if (element) {
+                callback();
+            } else {
+                setTimeout(function() {
+                    waitForElement(selector, callback);
+                }, 100);  // Adjust the delay as needed
+            }
+        }
+
+        fetch('/sunset_frontend/pages/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+
+                // Wait for the auth-button to exist, then load auth.js and call updateAuthButton
+                waitForElement('#auth-button', function() {
+                    var authScript = document.createElement('script');
+                    authScript.src = '/sunset_frontend/js/auth.js';
+                    document.body.appendChild(authScript);
+
+                    authScript.onload = function() {
+                        updateAuthButton();  // Call this function after auth.js is loaded
+                    };
+                });
             })
             .catch(error => console.error('Error loading header:', error));
     </script>

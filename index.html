@@ -60,24 +60,35 @@
         
     </main>
     <script>
+        function waitForElement(selector, callback) {
+            var element = document.querySelector(selector);
+            if (element) {
+                callback();
+            } else {
+                setTimeout(function() {
+                    waitForElement(selector, callback);
+                }, 100);  // Adjust the delay as needed
+            }
+        }
+
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
-                // Dynamically load the auth.js script
-                var authScript = document.createElement('script');
-                authScript.src = '/sunset_frontend/js/auth.js';
-                document.body.appendChild(authScript);
+                // Wait for the auth-button to exist, then load auth.js and call updateAuthButton
+                waitForElement('#auth-button', function() {
+                    var authScript = document.createElement('script');
+                    authScript.src = '/sunset_frontend/js/auth.js';
+                    document.body.appendChild(authScript);
 
-                // Ensure the script is loaded, then call updateAuthButton
-                authScript.onload = function() {
-                    updateAuthButton();  // Call this function after auth.js is loaded
-                };
+                    authScript.onload = function() {
+                        updateAuthButton();  // Call this function after auth.js is loaded
+                    };
+                });
             })
             .catch(error => console.error('Error loading header:', error));
     </script>
-
     
     <script src="/sunset_frontend/js/script.js"></script>
 </body>
