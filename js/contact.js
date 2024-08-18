@@ -92,23 +92,21 @@ function updateAuthState() {
 async function submitContactForm() {
     const token = localStorage.getItem('token');
 
-    // Collect data only if the fields are visible
+    // Collect the data from the form
     const nameField = document.getElementById('name');
     const emailField = document.getElementById('email');
+    const phoneField = document.getElementById('phone');
+    const messageField = document.getElementById('message');
 
     const contactData = {
-        name: nameField && nameField.style.display !== 'none' ? nameField.value : null,
-        email: emailField && emailField.style.display !== 'none' ? emailField.value : null,
-        phone: document.getElementById('phone').value,
-        message: document.getElementById('message').value
+        name: nameField ? nameField.value : "",  // Ensure name is always provided
+        email: emailField ? emailField.value : "",  // Ensure email is always provided
+        phone_nr: phoneField.value,  // Use 'phone_nr' as this is the expected field name
+        message: messageField.value
     };
 
-    // Remove fields that are null
-    Object.keys(contactData).forEach(key => {
-        if (contactData[key] === null) {
-            delete contactData[key];
-        }
-    });
+    // Log the final contact data being sent
+    console.log('Sending contact data:', contactData);
 
     try {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
