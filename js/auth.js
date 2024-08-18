@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function updateAuthButton() {
     const token = localStorage.getItem('token');
+    console.log('Token retrieved:', token);  // Log token retrieval
     const authButton = document.getElementById('auth-button');
 
     if (!authButton) {
@@ -47,6 +48,7 @@ function updateAuthButton() {
     }
 
     if (token) {
+        console.log('User is authenticated. Updating button to "DECONECTARE".');
         authButton.textContent = 'DECONECTARE';
         authButton.setAttribute('href', '#');
         authButton.onclick = function(event) {
@@ -54,12 +56,14 @@ function updateAuthButton() {
             logoutUser();
         };
     } else {
+        console.log('User is not authenticated. Updating button to "AUTENTIFICARE".');
         authButton.textContent = 'AUTENTIFICARE';
         authButton.setAttribute('href', '/sunset_frontend/pages/login.html');
     }
 }
 
 function logoutUser() {
+    console.log('Logging out user...');
     localStorage.removeItem('token');
     updateAuthButton();  // Update the button back to login state
     window.location.href = '/sunset_frontend/index.html';  // Redirect to homepage
