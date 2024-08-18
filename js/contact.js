@@ -100,6 +100,9 @@ async function submitContactForm() {
         }
     }
 
+    // Log the email value to check if it's correctly populated
+    console.log('Email being sent:', emailField ? emailField.value : "No email field found");
+
     const contactData = {
         name: nameField ? nameField.value : "",  // Ensure name is always provided
         email: emailField ? emailField.value : "",  // Ensure email is always provided
@@ -139,3 +142,4 @@ async function submitContactForm() {
         document.getElementById('error-message').style.display = 'block';
     }
 }
+
