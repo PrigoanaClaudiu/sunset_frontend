@@ -60,6 +60,28 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Email validation
+        const emailValue = emailField.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailField && !emailRegex.test(emailValue)) {
+            errorMessage.innerText = 'Adresa de email nu este validă. Introduceți o adresă de email corectă.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // Check-in and Check-out date validation
+        if (!dataStartField.value) {
+            errorMessage.innerText = 'Selectați o dată de check-in.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        if (!dataFinishField.value) {
+            errorMessage.innerText = 'Selectați o dată de check-out.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
         // Clear any previous error messages
         errorMessage.style.display = 'none';
 
@@ -72,9 +94,6 @@ document.addEventListener("DOMContentLoaded", function() {
             data_finish: dataFinishField.value,
             details: detailsField.value
         };
-
-        // Debugging output
-        console.log('Submitting reservation:', reservationData);
 
         try {
             const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/', {
