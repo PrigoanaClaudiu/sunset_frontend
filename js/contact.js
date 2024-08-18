@@ -97,6 +97,25 @@ async function submitContactForm() {
     const messageField = document.getElementById('message');
     const errorMessage = document.getElementById('error-message');
 
+    if (token) {
+        const storedName = localStorage.getItem('user_name');
+        const storedEmail = localStorage.getItem('user_email');
+
+        // Handle name field
+        if (storedName && nameField) {
+            nameField.value = storedName;
+            nameField.disabled = true;  // Disable the name field
+            nameField.removeAttribute('required'); // Remove the required attribute
+        }
+
+        // Handle email field
+        if (storedEmail && emailField) {
+            emailField.value = storedEmail;
+            emailField.disabled = true;  // Disable the email field
+            emailField.removeAttribute('required'); // Remove the required attribute
+        }
+    }
+
     // Phone number validation
     const phoneNumber = phoneField.value;
     const phoneRegex = /^\d{10}$/;  // Regular expression to match exactly 10 digits
@@ -109,21 +128,6 @@ async function submitContactForm() {
 
     // Clear the error message if the phone number is valid
     errorMessage.style.display = 'none';
-
-    if (token) {
-        const storedName = localStorage.getItem('user_name');
-        const storedEmail = localStorage.getItem('user_email');
-
-        if (storedName && nameField) {
-            nameField.value = storedName;
-            nameField.setAttribute('readonly', true); // Make the name field read-only
-        }
-        if (storedEmail && emailField) {
-            emailField.value = storedEmail;
-            emailField.disabled = true;  // Disable the email field to prevent edits
-            emailField.removeAttribute('required'); // Remove the required attribute
-        }
-    }
 
     const contactData = {
         name: nameField ? nameField.value : "",
