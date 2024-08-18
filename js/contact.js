@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function updateAuthState() {
     const token = localStorage.getItem('token');
-    console.log('Token:', token);  // Debugging: Check the token value
     const unauthenticatedFields = document.getElementById('unauthenticated-fields');
 
     if (unauthenticatedFields) {
@@ -22,11 +21,9 @@ function updateAuthState() {
     }
 
     if (token) {
-        console.log('User is authenticated. Hiding unauthenticated fields.');  // Debugging: Log when hiding fields
         unauthenticatedFields.style.display = 'none';  // Hide name and email fields for authenticated users
         console.log('Unauthenticated fields hidden.');
     } else {
-        console.log('User is not authenticated. Showing unauthenticated fields.');  // Debugging: Log when showing fields
         unauthenticatedFields.style.display = 'block';  // Show name and email fields for unauthenticated users
         console.log('Unauthenticated fields shown.');
     }
@@ -41,15 +38,26 @@ function updateAuthState() {
 //     const phoneField = document.getElementById('phone');
 //     const messageField = document.getElementById('message');
 
+//     if (token) {
+//         // Retrieve stored user info for authenticated users
+//         const storedName = localStorage.getItem('user_name');
+//         const storedEmail = localStorage.getItem('user_email');
+
+//         if (storedName && nameField) {
+//             nameField.value = storedName;
+//         }
+//         if (storedEmail && emailField) {
+//             emailField.value = storedEmail;
+//         }
+//     }
+
 //     const contactData = {
-//         name: nameField ? nameField.value : "",  // Ensure name is always provided
-//         email: emailField ? emailField.value : "",  // Ensure email is always provided
-//         phone_nr: phoneField.value,  // Use 'phone_nr' as this is the expected field name
+//         name: nameField ? nameField.value : "",
+//         email: emailField ? emailField.value : "",
+//         phone_nr: phoneField.value,
 //         message: messageField.value
 //     };
 
-//     // Log the final contact data being sent
-//     console.log('Sending contact data:', contactData);
 
 //     try {
 //         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
@@ -68,7 +76,8 @@ function updateAuthState() {
 //             document.getElementById('error-message').style.display = 'none';
 //             document.getElementById('contactForm').reset();
 //         } else {
-//             document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
+//             console.error('Error Response Data:', responseData);
+//             document.getElementById('error-message').innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
 //             document.getElementById('error-message').style.display = 'block';
 //         }
 //     } catch (error) {
@@ -77,6 +86,7 @@ function updateAuthState() {
 //         document.getElementById('error-message').style.display = 'block';
 //     }
 // }
+
 async function submitContactForm() {
     const token = localStorage.getItem('token');
 
@@ -87,7 +97,6 @@ async function submitContactForm() {
     const messageField = document.getElementById('message');
 
     if (token) {
-        // Retrieve stored user info for authenticated users
         const storedName = localStorage.getItem('user_name');
         const storedEmail = localStorage.getItem('user_email');
 
@@ -106,8 +115,6 @@ async function submitContactForm() {
         message: messageField.value
     };
 
-    console.log('Authenticated user - Sending contact data:', contactData);
-
     try {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
             method: 'POST',
@@ -121,11 +128,17 @@ async function submitContactForm() {
         const responseData = await response.json();
 
         if (response.ok) {
-            document.getElementById('success-message').style.display = 'block';
-            document.getElementById('error-message').style.display = 'none';
-            document.getElementById('contactForm').reset();
+            // Hide the form and display success message
+            document.getElementById('contactForm').style.display = 'none';
+            const successMessage = document.getElementById('success-message');
+            successMessage.innerText = 'Mesaj trimis cu succes!';
+            successMessage.style.display = 'block';
+
+            // Redirect to the homepage after 3 seconds
+            setTimeout(() => {
+                window.location.href = '/sunset_frontend/index.html';
+            }, 3000);
         } else {
-            console.error('Error Response Data:', responseData);
             document.getElementById('error-message').innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
             document.getElementById('error-message').style.display = 'block';
         }
@@ -135,5 +148,4 @@ async function submitContactForm() {
         document.getElementById('error-message').style.display = 'block';
     }
 }
-
 
