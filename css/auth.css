@@ -141,7 +141,6 @@
 }
 
 .back-home-link::before {
-    /* content: "←"; */
     margin-right: 8px;
     font-size: 20px;
 }

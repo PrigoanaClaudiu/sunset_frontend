@@ -86,34 +86,27 @@ async function submitContactForm() {
     const phoneField = document.getElementById('phone');
     const messageField = document.getElementById('message');
 
-    // For authenticated users, populate the name and email fields with stored values if they are hidden
     if (token) {
-        const storedName = localStorage.getItem('user_name');  // Assuming you store the user's name at login
-        const storedEmail = localStorage.getItem('user_email');  // Assuming you store the user's email at login
-        
-        // Only override if fields are empty
-        if (nameField && !nameField.value) {
-            nameField.value = storedName || "";  // Use the stored name
+        // Retrieve stored user info for authenticated users
+        const storedName = localStorage.getItem('user_name');
+        const storedEmail = localStorage.getItem('user_email');
+
+        if (storedName && nameField) {
+            nameField.value = storedName;
         }
-        if (emailField && !emailField.value) {
-            emailField.value = storedEmail || "";  // Use the stored email
+        if (storedEmail && emailField) {
+            emailField.value = storedEmail;
         }
     }
 
-    // Log the email value to check if it's correctly populated
-    console.log('Email being sent:', emailField ? emailField.value : "No email field found");
-
     const contactData = {
-        name: nameField ? nameField.value : "",  // Ensure name is always provided
-        email: emailField ? emailField.value : "",  // Ensure email is always provided
-        phone_nr: phoneField.value,  // Use 'phone_nr' as this is the expected field name
+        name: nameField ? nameField.value : "",
+        email: emailField ? emailField.value : "",
+        phone_nr: phoneField.value,
         message: messageField.value
     };
 
-    // Log the final contact data being sent (specifically for authenticated users)
-    if (token) {
-        console.log('Authenticated user - Sending contact data:', contactData);
-    }
+    console.log('Authenticated user - Sending contact data:', contactData);
 
     try {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
@@ -142,4 +135,5 @@ async function submitContactForm() {
         document.getElementById('error-message').style.display = 'block';
     }
 }
+
 

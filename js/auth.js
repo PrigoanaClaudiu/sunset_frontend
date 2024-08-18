@@ -75,6 +75,39 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Handling the login process
+// const loginForm = document.getElementById('loginForm');
+// if (loginForm) {
+//     loginForm.addEventListener('submit', async function(event) {
+//         event.preventDefault();
+
+//         const email = document.getElementById('email').value;
+//         const password = document.getElementById('password').value;
+
+//         try {
+//             const response = await fetch(loginUrl, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/x-www-form-urlencoded',
+//                 },
+//                 body: new URLSearchParams({ username: email, password: password }),
+//             });
+
+//             const data = await response.json();
+
+//             if (response.ok) {
+//                 // Store the JWT token
+//                 localStorage.setItem('token', data.access_token);
+//                 window.location.href = '/sunset_frontend/index.html'; // Redirect to the main page
+//             } else {
+//                 handleErrorMessage(data);
+//             }
+//         } catch (error) {
+//             console.error('Error:', error);
+//             document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
+//             document.getElementById('error-message').style.display = 'block';
+//         }
+//     });
+// }
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
     loginForm.addEventListener('submit', async function(event) {
@@ -95,8 +128,10 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
-                // Store the JWT token
+                // Store the JWT token and user info in localStorage
                 localStorage.setItem('token', data.access_token);
+                localStorage.setItem('user_name', data.user_name);  // Store the user's name
+                localStorage.setItem('user_email', data.user_email);  // Store the user's email
                 window.location.href = '/sunset_frontend/index.html'; // Redirect to the main page
             } else {
                 handleErrorMessage(data);
@@ -108,6 +143,7 @@ if (loginForm) {
         }
     });
 }
+
 
 // Function to handle error messages
 function handleErrorMessage(data) {
