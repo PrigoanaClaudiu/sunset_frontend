@@ -13,15 +13,9 @@ function updateAuthState() {
     const unauthenticatedFields = document.getElementById('unauthenticated-fields');
 
     if (token) {
-        // Example placeholder data; should replace with real user data retrieval logic
-        const userName = "John Doe";  // Replace with actual user data retrieval
-        const userEmail = "john@example.com";  // Replace with actual user data retrieval
-
-        document.getElementById('name').value = userName;
-        document.getElementById('email').value = userEmail;
-        unauthenticatedFields.style.display = 'none';  // Hide fields for authenticated users
+        unauthenticatedFields.style.display = 'none';  // Hide name and email fields for authenticated users
     } else {
-        unauthenticatedFields.style.display = 'block';  // Show fields for unauthenticated users
+        unauthenticatedFields.style.display = 'block';  // Show name and email fields for unauthenticated users
     }
 }
 
@@ -29,8 +23,8 @@ async function submitContactForm() {
     const token = localStorage.getItem('token');
 
     const contactData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
+        name: document.getElementById('name') ? document.getElementById('name').value : null,
+        email: document.getElementById('email') ? document.getElementById('email').value : null,
         phone: document.getElementById('phone').value,
         message: document.getElementById('message').value
     };
@@ -50,7 +44,7 @@ async function submitContactForm() {
         if (response.ok) {
             document.getElementById('success-message').style.display = 'block';
             document.getElementById('error-message').style.display = 'none';
-            contactForm.reset();
+            document.getElementById('contactForm').reset();
         } else {
             document.getElementById('error-message').innerText = responseData.detail || 'An error occurred.';
             document.getElementById('error-message').style.display = 'block';

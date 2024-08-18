@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <title>Contact - Cabana Sunset</title>
     <link rel="stylesheet" href="../css/style.css">
@@ -34,21 +35,18 @@
 
     <!-- Dynamic Header Loading Script -->
     <script>
-         fetch('/sunset_frontend/pages/header.html')
+        fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
-                // Generate a unique URL for auth.js to prevent caching
-                var timestamp = new Date().getTime();
                 var authScript = document.createElement('script');
-                authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
+                authScript.src = '/sunset_frontend/js/auth.js';
                 authScript.onload = function() {
-                    updateAuthButton();  // Call this function after auth.js is loaded
+                    updateAuthButton();
                 };
                 document.body.appendChild(authScript);
 
-                // Load contact.js to handle form submission and authentication state
                 var contactScript = document.createElement('script');
                 contactScript.src = '/sunset_frontend/js/contact.js';
                 document.body.appendChild(contactScript);
