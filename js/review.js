@@ -14,22 +14,16 @@ async function loadReviewSection() {
                 }
             });
 
-            console.log('Response status:', response.status);
-            console.log('Response statusText:', response.statusText);
-            
             if (response.ok) {
                 const userReview = await response.json();
                 displayUserReview(userReview);
             } else if (response.status === 404) {
-                // Afișează formularul dacă utilizatorul nu are un review
-                displayReviewForm();
+                displayReviewForm(); // Afișează formularul dacă utilizatorul nu are un review
             } else {
                 const errorData = await response.json();
-                console.error('Server error details:', errorData);
                 throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Error fetching review:', error);
             reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
         }
     } else {
@@ -39,7 +33,6 @@ async function loadReviewSection() {
         `;
     }
 }
-
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.user_id;
@@ -124,11 +117,11 @@ async function submitReview(event) {
             errorMessage.style.display = 'block';
         }
     } catch (error) {
-        console.error('Error:', error);
         errorMessage.innerText = 'A apărut o eroare. Vă rugăm să încercați din nou.';
         errorMessage.style.display = 'block';
     }
 }
+
 
 async function editReview(id) {
     const token = localStorage.getItem('token');
@@ -143,10 +136,10 @@ async function editReview(id) {
             const review = await response.json();
             displayReviewForm(review);  // Pre-fill the form with the review data
         } else {
-            console.error('Failed to fetch the review for editing.');
+            // console.error('Failed to fetch the review for editing.');
         }
     } catch (error) {
-        console.error('Error:', error);
+        // console.error('Error:', error);
     }
 }
 
@@ -176,7 +169,7 @@ async function submitReviewUpdate(id, event) {
             errorMessage.style.display = 'block';
         }
     } catch (error) {
-        console.error('Error:', error);
+        // console.error('Error:', error);
         errorMessage.innerText = 'A apărut o eroare. Vă rugăm să încercați din nou.';
         errorMessage.style.display = 'block';
     }
@@ -196,9 +189,9 @@ async function deleteReview(id) {
         if (response.ok) {
             displayReviewForm(); // Reset to form after deletion
         } else {
-            console.error('Failed to delete review.');
+            // console.error('Failed to delete review.');
         }
     } catch (error) {
-        console.error('Error:', error);
+        // console.error('Error:', error);
     }
 }
