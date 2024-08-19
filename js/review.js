@@ -18,10 +18,8 @@ async function loadReviewSection() {
                 const userReview = await response.json();
                 displayUserReview(userReview);
             } else if (response.status === 404) {
-                // User does not have a review, display the form without logging an error
                 displayReviewForm();
             } else {
-                // Log errors other than 404 if necessary
                 const errorData = await response.json();
                 console.error(`Failed to fetch user review: ${response.statusText}`);
                 console.error('Server error details:', errorData);
@@ -41,19 +39,13 @@ async function loadReviewSection() {
     }
 }
 
-
-function getUserIdFromToken(token) {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.user_id;
-}
-
 function displayUserReview(review) {
     const reviewSection = document.getElementById('review-section');
     reviewSection.innerHTML = `
         <div class="user-review">
             <h3>Recenzia ta</h3>
             <p>${review.content}</p>
-            <p>Rating: ${generateStarRating(review.rating)}</p>
+            <div class="star-rating">${generateStarRating(review.rating)}</div>
             <button onclick="editReview(${review.id})">Modifica</button>
             <button onclick="deleteReview(${review.id})">Sterge</button>
         </div>
@@ -79,7 +71,6 @@ function displayReviewForm(review = null) {
 
     document.getElementById('reviewForm').addEventListener('submit', review ? submitReviewUpdate.bind(null, review.id) : submitReview);
 }
-
 
 function generateStarRating(rating) {
     let stars = '';
@@ -131,7 +122,6 @@ async function submitReview(event) {
     }
 }
 
-
 async function editReview(id) {
     const token = localStorage.getItem('token');
     try {
@@ -143,12 +133,12 @@ async function editReview(id) {
 
         if (response.ok) {
             const review = await response.json();
-            displayReviewForm(review);  // Pre-fill the form with the review data
+            displayReviewForm(review);
         } else {
-            // console.error('Failed to fetch the review for editing.');
+            console.error('Failed to fetch the review for editing.');
         }
     } catch (error) {
-        // console.error('Error:', error);
+        console.error('Error:', error);
     }
 }
 
@@ -178,12 +168,10 @@ async function submitReviewUpdate(id, event) {
             errorMessage.style.display = 'block';
         }
     } catch (error) {
-        // console.error('Error:', error);
         errorMessage.innerText = 'A apărut o eroare. Vă rugăm să încercați din nou.';
         errorMessage.style.display = 'block';
     }
 }
-
 
 async function deleteReview(id) {
     const token = localStorage.getItem('token');
@@ -196,11 +184,11 @@ async function deleteReview(id) {
         });
 
         if (response.ok) {
-            displayReviewForm(); // Reset to form after deletion
+            displayReviewForm();
         } else {
-            // console.error('Failed to delete review.');
+            console.error('Failed to delete review.');
         }
     } catch (error) {
-        // console.error('Error:', error);
+        console.error('Error:', error);
     }
 }

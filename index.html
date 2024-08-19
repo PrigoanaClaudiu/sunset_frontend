@@ -49,13 +49,12 @@
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
-                // Generate a unique URL for auth.js to prevent caching
                 var timestamp = new Date().getTime();
                 var authScript = document.createElement('script');
                 authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
                 authScript.onload = function() {
-                    updateAuthButton();  // Call this function after auth.js is loaded
-                    loadReviewSection();  // Load the review section after auth.js is loaded
+                    updateAuthButton();  
+                    loadReviewSection();  
                 };
                 document.body.appendChild(authScript);
             })
