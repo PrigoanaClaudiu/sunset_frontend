@@ -8,22 +8,18 @@ async function loadReviewSection() {
 
     if (token) {
         try {
-            const userId = getUserIdFromToken(token);
-            const userReviewResponse = await fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews`, {
+            const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/user-review', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            if (userReviewResponse.ok) {
-                const allReviews = await userReviewResponse.json();
-                const userReview = allReviews.find(review => review.user_id === userId);
-
-                if (userReview) {
-                    displayUserReview(userReview);
-                } else {
-                    displayReviewForm();
-                }
+            if (response.ok) {
+                const userReview = await response.json();
+                displayUserReview(userReview);
+            } else if (response.status === 404) {
+                // User does not have a review, display the form
+                displayReviewForm();
             } else {
                 throw new Error('Failed to fetch user review.');
             }
@@ -38,6 +34,7 @@ async function loadReviewSection() {
         `;
     }
 }
+
 
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
