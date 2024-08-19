@@ -8,16 +8,16 @@ async function loadReviewSection() {
 
     if (token) {
         try {
-            const userReviewResponse = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews', {
+            const userId = getUserIdFromToken(token);
+            const userReviewResponse = await fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
             if (userReviewResponse.ok) {
-                const userReviews = await userReviewResponse.json();
-                const userId = getUserIdFromToken(token);
-                const userReview = userReviews.find(review => review.user_id === userId);
+                const allReviews = await userReviewResponse.json();
+                const userReview = allReviews.find(review => review.user_id === userId);
 
                 if (userReview) {
                     displayUserReview(userReview);
@@ -128,23 +128,32 @@ async function submitReview(event) {
 
 async function editReview(id) {
     const token = localStorage.getItem('token');
+    const content = document.getElementById('reviewContent').value;
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const errorMessage = document.getElementById('error-message');
+
     try {
         const response = await fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/${id}`, {
+            method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content, rating })
         });
 
         if (response.ok) {
-            const review = await response.json();
-            displayReviewForm();  // Pre-fill the form with the review data
-            document.getElementById('reviewContent').value = review.content;
-            document.querySelector(`input[name="rating"][value="${review.rating}"]`).checked = true;
+            const updatedReview = await response.json();
+            displayUserReview(updatedReview);
         } else {
-            console.error('Failed to fetch the review for editing.');
+            const errorData = await response.json();
+            errorMessage.innerText = errorData.detail || 'Eroare la actualizarea recenziei.';
+            errorMessage.style.display = 'block';
         }
     } catch (error) {
         console.error('Error:', error);
+        errorMessage.innerText = 'A apărut o eroare. Vă rugăm să încercați din nou.';
+        errorMessage.style.display = 'block';
     }
 }
 
