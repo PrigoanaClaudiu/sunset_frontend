@@ -6,6 +6,7 @@
     <title>Cabana Sunset</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/review.css">
+    <link rel="stylesheet" href="./css/reviewAll.css"> <!-- Adaugă acest link -->
 </head>
 <body>
     <div id="header-container"></div>
@@ -39,30 +40,15 @@
         </div>
         <!-- Review Section -->
         <div id="review-section" class="review-container">
-            <!-- Content will be dynamically loaded here -->
+        </div>
+        
+        <!-- All Reviews Section -->
+        <div id="all-reviews-container">
         </div>
     </main>
     
-    <script>
-        fetch('/sunset_frontend/pages/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-
-                // Generate a unique URL for auth.js to prevent caching
-                var timestamp = new Date().getTime();
-                var authScript = document.createElement('script');
-                authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
-                authScript.onload = function() {
-                    updateAuthButton();  // Call this function after auth.js is loaded
-                    loadReviewSection();  // Load the review section after auth.js is loaded
-                };
-                document.body.appendChild(authScript);
-            })
-            .catch(error => console.error('Error loading header:', error));
-    </script>
-
     <script src="/sunset_frontend/js/script.js"></script>
     <script src="/sunset_frontend/js/review.js"></script>
+    <script src="/sunset_frontend/js/reviewAll.js"></script> 
 </body>
 </html>
