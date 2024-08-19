@@ -45,15 +45,17 @@ function getUserIdFromToken(token) {
 function displayUserReview(review) {
     const reviewSection = document.getElementById('review-section');
     reviewSection.innerHTML = `
-        <div class="user-review">
-            <h3>Recenzia ta</h3>
-            <p>${review.content}</p>
-            <div class="rating-stars">
-                ${generateStarRating(review.rating)}
-            </div>
-            <div class="review-buttons">
-                <button onclick="editReview(${review.id})">Modifica</button>
-                <button onclick="deleteReview(${review.id})">Sterge</button>
+        <div class="user-review-container">
+            <div class="user-review">
+                <h3>Recenzia ta</h3>
+                <p>${review.content}</p>
+                <div class="rating-stars">
+                    ${generateStarRating(review.rating)}
+                </div>
+                <div class="review-buttons">
+                    <button onclick="editReview(${review.id})">Modifica</button>
+                    <button onclick="deleteReview(${review.id})">Sterge</button>
+                </div>
             </div>
         </div>
     `;
@@ -65,15 +67,17 @@ function displayReviewForm(review = null) {
     const rating = review ? review.rating : 0;
 
     reviewSection.innerHTML = `
-        <h3>${review ? 'Modifica recenzia ta' : 'Lasa un review'}</h3>
-        <form id="reviewForm">
-            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required>${content}</textarea>
-            <div id="rating-container">
-                ${generateStarInputs(rating)}
-            </div>
-            <button type="submit">${review ? 'Actualizeaza' : 'Trimite'}</button>
-        </form>
-        <p id="error-message" style="display:none; color:red;"></p>
+        <div id="reviewForm-container">
+            <h3>${review ? 'Modifica recenzia ta' : 'Lasa un review'}</h3>
+            <form id="reviewForm">
+                <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required>${content}</textarea>
+                <div id="rating-container">
+                    ${generateStarInputs(rating)}
+                </div>
+                <button type="submit">${review ? 'Actualizeaza' : 'Trimite'}</button>
+            </form>
+            <p id="error-message" style="display:none; color:red;"></p>
+        </div>
     `;
 
     document.getElementById('reviewForm').addEventListener('submit', review ? submitReviewUpdate.bind(null, review.id) : submitReview);
