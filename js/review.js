@@ -14,6 +14,9 @@ async function loadReviewSection() {
                 }
             });
 
+            console.log('Response status:', response.status);
+            console.log('Response statusText:', response.statusText);
+            
             if (response.ok) {
                 const userReview = await response.json();
                 displayUserReview(userReview);
@@ -21,11 +24,13 @@ async function loadReviewSection() {
                 // User does not have a review, display the form
                 displayReviewForm();
             } else {
-                throw new Error('Failed to fetch user review.');
+                const errorData = await response.json();
+                console.error('Server error details:', errorData);
+                throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
         } catch (error) {
             console.error('Error fetching review:', error);
-            reviewSection.innerHTML = '<p>Eroare la încărcarea recenziei.</p>';
+            reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
         }
     } else {
         reviewSection.innerHTML = `
@@ -34,7 +39,6 @@ async function loadReviewSection() {
         `;
     }
 }
-
 
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
