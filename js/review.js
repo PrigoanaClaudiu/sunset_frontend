@@ -8,28 +8,27 @@ async function loadReviewSection() {
 
     if (token) {
         try {
-            const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/', {
+            const userReviewResponse = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            if (response.ok) {
-                const reviews = await response.json();
-                
-                // Find the review that belongs to the current user
-                const userReview = reviews.find(review => review.user_id === getUserIdFromToken(token));
-                
+            if (userReviewResponse.ok) {
+                const userReviews = await userReviewResponse.json();
+                const userId = getUserIdFromToken(token);
+                const userReview = userReviews.find(review => review.user_id === userId);
+
                 if (userReview) {
                     displayUserReview(userReview);
                 } else {
                     displayReviewForm();
                 }
             } else {
-                throw new Error('Failed to fetch user review.');
+                reviewSection.innerHTML = '<p>Eroare la încărcarea recenziei.</p>';
             }
         } catch (error) {
-            console.error(error);
+            console.error('Eroare la încărcarea recenziei:', error);
             reviewSection.innerHTML = '<p>Eroare la încărcarea recenziei.</p>';
         }
     } else {
@@ -117,7 +116,7 @@ async function submitReview(event) {
             displayUserReview(newReview);
         } else {
             const errorData = await response.json();
-            errorMessage.innerText = errorData.detail;
+            errorMessage.innerText = errorData.detail || 'Eroare la trimiterea recenziei.';
             errorMessage.style.display = 'block';
         }
     } catch (error) {
