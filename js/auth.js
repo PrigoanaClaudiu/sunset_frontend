@@ -125,7 +125,7 @@ if (registerForm) {
             }
         } catch (error) {
             console.error('Error:', error);
-            document.getElementById('error-message').innerText = 'A apărut o eroare neprevăzută. Vă rugăm să încercați din nou mai târziu.';
+            document.getElementById('error-message').innerText = 'Adresa de email folosita, e deja inregistrata!';
             document.getElementById('error-message').style.display = 'block';
         }
     });

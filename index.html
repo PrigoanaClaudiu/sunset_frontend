@@ -8,57 +8,40 @@
 </head>
 <body>
     <div id="header-container"></div>
-    <!-- <header>
-        <div class="container">
-            <div class="logo">
-                <h1>CABANA SUNSET</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">ACASA</a></li>
-                    <li><a href="./pages/about.html">DESPRE</a></li>
-                    <li><a href="./pages/photos.html">POZE</a></li>
-                    <li><a href="./pages/contact.html">CONTACT</a></li>
-                    <li><a href="./pages/reservations.html" class="reserve-btn">REZERVA ONLINE</a></li>
-                    <li><a href="./pages/login.html">AUTENTIFICARE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header> -->
+    
     <main>
         <div class="content-container">
+            <!-- Slideshow and Welcome Message -->
             <div class="slideshow-container">
-                <!-- Slideshow container -->
                 <div class="mySlides fade">
                     <img src="./images/1.jpeg" style="width:100%">
                 </div>
-        
                 <div class="mySlides fade">
                     <img src="./images/2.jpeg" style="width:100%">
                 </div>
-        
                 <div class="mySlides fade">
                     <img src="./images/3.jpeg" style="width:100%">
                 </div>
-        
-                <!-- Next and previous buttons -->
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
-        
             <div class="info-box">
                 <h2>Bine ai venit!</h2>
                 <p>Cabana Sunset este situată într-o zonă pitorească, oferind o priveliște minunată asupra naturii înconjurătoare.</p>
                 <p>Este locul ideal pentru a vă relaxa și a petrece timp de calitate cu familia și prietenii.</p>
             </div>
         </div>
-        <!-- Noua secțiune pentru butonul de rezervare -->
+        <!-- Reservation Call to Action -->
         <div class="reservation-info-box">
             <p>Vă așteptăm la Cabana Sunset! Nu mai așteptați, rezervați acum pentru a vă asigura locul!</p>
             <a href="./pages/reservations.html" class="reserve-info-btn">FA O REZERVARE ACUM!</a>
         </div>
-        
+        <!-- Review Section -->
+        <div id="review-section" class="review-container">
+            <!-- Content will be dynamically loaded here -->
+        </div>
     </main>
+    
     <script>
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
@@ -71,12 +54,14 @@
                 authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
                 authScript.onload = function() {
                     updateAuthButton();  // Call this function after auth.js is loaded
+                    loadReviewSection();  // Load the review section after auth.js is loaded
                 };
                 document.body.appendChild(authScript);
             })
             .catch(error => console.error('Error loading header:', error));
     </script>
-    
+
     <script src="/sunset_frontend/js/script.js"></script>
+    <script src="/sunset_frontend/js/review.js"></script>
 </body>
 </html>
