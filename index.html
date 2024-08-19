@@ -39,11 +39,25 @@
             </div>
         </div>
 
-        <!-- All Reviews Section -->
         <div id="all-reviews-container">
+            <div id="filter-container">
+                <button class="filter-button" data-rating="1">1 Star</button>
+                <button class="filter-button" data-rating="2">2 Stars</button>
+                <button class="filter-button" data-rating="3">3 Stars</button>
+                <button class="filter-button" data-rating="4">4 Stars</button>
+                <button class="filter-button" data-rating="5">5 Stars</button>
+                <button class="filter-button" data-rating="all">All</button>
+            </div>
+            
+            <div id="reviews-grid">
+                <!-- Review-urile vor fi afișate aici -->
+            </div>
+        
+            <div id="navigation">
+                <button id="prev-button">&#10094; Previous</button>
+                <button id="next-button">Next &#10095;</button>
+            </div>
         </div>
-    </main>
-
     <script>
         fetch('/sunset_frontend/pages/header.html')
             .then(response => response.text())
