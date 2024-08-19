@@ -21,13 +21,19 @@ async function loadReviewSection() {
                 // User does not have a review, display the form without logging an error
                 displayReviewForm();
             } else {
-                // Handle other types of errors if needed
                 const errorData = await response.json();
+                console.error('Server error details:', errorData);
                 throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
         } catch (error) {
-            // In case of a non-404 error, show it on the UI but do not log it in the console
-            reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
+            if (error.message.includes('404')) {
+                // Handle 404 specifically without logging the error
+                reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: Utilizatorul nu are o recenzie.</p>`;
+            } else {
+                // Log other errors if needed
+                console.error('Error fetching review:', error);
+                reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
+            }
         }
     } else {
         reviewSection.innerHTML = `
