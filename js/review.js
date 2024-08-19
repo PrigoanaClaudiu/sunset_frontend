@@ -18,12 +18,15 @@ async function loadReviewSection() {
                 const userReview = await response.json();
                 displayUserReview(userReview);
             } else if (response.status === 404) {
-                displayReviewForm(); // Afișează formularul dacă utilizatorul nu are un review
+                // User does not have a review, display the form without logging an error
+                displayReviewForm();
             } else {
+                // Handle other types of errors if needed
                 const errorData = await response.json();
                 throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
         } catch (error) {
+            // In case of a non-404 error, show it on the UI but do not log it in the console
             reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
         }
     } else {
@@ -33,6 +36,7 @@ async function loadReviewSection() {
         `;
     }
 }
+
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.user_id;
