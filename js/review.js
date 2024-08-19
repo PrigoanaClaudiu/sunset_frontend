@@ -58,24 +58,22 @@ function displayUserReview(review) {
     `;
 }
 
-function displayReviewForm(review = null) {
+function displayReviewForm() {
     const reviewSection = document.getElementById('review-section');
-    const content = review ? review.content : '';
-    const rating = review ? review.rating : 0;
-
+    
     reviewSection.innerHTML = `
-        <h3>${review ? 'Modifica recenzia ta' : 'Lasa un review'}</h3>
+        <h3>Lasa un review</h3>
         <form id="reviewForm">
-            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required>${content}</textarea>
+            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required></textarea>
             <div id="rating-container">
-                ${generateStarInputs(rating)}
+                ${generateStarInputs(0)}
             </div>
-            <button type="submit">${review ? 'Actualizeaza' : 'Trimite'}</button>
+            <button type="submit">Trimite</button>
         </form>
         <p id="error-message" style="display:none; color:red;"></p>
     `;
 
-    document.getElementById('reviewForm').addEventListener('submit', review ? submitReviewUpdate.bind(null, review.id) : submitReview);
+    document.getElementById('reviewForm').addEventListener('submit', submitReview);
 }
 
 function generateStarRating(rating) {
@@ -140,44 +138,14 @@ async function editReview(id) {
 
         if (response.ok) {
             const review = await response.json();
-            displayReviewForm(review);  // Pre-fill the form with the review data
+            displayReviewForm();  // Pre-fill the form with the review data
+            document.getElementById('reviewContent').value = review.content;
+            document.querySelector(`input[name="rating"][value="${review.rating}"]`).checked = true;
         } else {
             console.error('Failed to fetch the review for editing.');
         }
     } catch (error) {
         console.error('Error:', error);
-    }
-}
-
-async function submitReviewUpdate(id, event) {
-    event.preventDefault();
-    const token = localStorage.getItem('token');
-    const content = document.getElementById('reviewContent').value;
-    const rating = document.querySelector('input[name="rating"]:checked').value;
-    const errorMessage = document.getElementById('error-message');
-
-    try {
-        const response = await fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ content, rating })
-        });
-
-        if (response.ok) {
-            const updatedReview = await response.json();
-            displayUserReview(updatedReview);
-        } else {
-            const errorData = await response.json();
-            errorMessage.innerText = errorData.detail;
-            errorMessage.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        errorMessage.innerText = 'A apărut o eroare. Vă rugăm să încercați din nou.';
-        errorMessage.style.display = 'block';
     }
 }
 
