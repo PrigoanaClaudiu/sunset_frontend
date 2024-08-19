@@ -33,20 +33,30 @@
                 <p>Este locul ideal pentru a vă relaxa și a petrece timp de calitate cu familia și prietenii.</p>
             </div>
         </div>
-        <!-- Reservation Call to Action -->
-        <div class="reservation-info-box">
-            <p>Vă așteptăm la Cabana Sunset! Nu mai așteptați, rezervați acum pentru a vă asigura locul!</p>
-            <a href="./pages/reservations.html" class="reserve-info-btn">FA O REZERVARE ACUM!</a>
-        </div>
         <!-- Review Section -->
-        <div id="review-section" class="review-container">
-        </div>
+            <div id="review-section" class="review-container">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+
+    <script>
+        fetch('/sunset_frontend/pages/header.html')
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById('header-container').innerHTML = data;
         
-        <!-- All Reviews Section -->
-        <div id="all-reviews-container">
-        </div>
-    </main>
-    
+            // Generate a unique URL for auth.js to prevent caching
+            var timestamp = new Date().getTime();
+            var authScript = document.createElement('script');
+            authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
+            authScript.onload = function() {
+                    updateAuthButton();  // Call this function after auth.js is loaded
+                    loadReviewSection();  // Load the review section after auth.js is loaded
+                };
+                document.body.appendChild(authScript);
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+        
     <script src="/sunset_frontend/js/script.js"></script>
     <script src="/sunset_frontend/js/review.js"></script>
     <script src="/sunset_frontend/js/reviewAll.js"></script> 

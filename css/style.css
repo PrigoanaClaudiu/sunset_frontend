@@ -147,7 +147,7 @@ body, html {
     align-self: center; 
 }
 
-/* reservation box index */
+/* reservation box index
 .reservation-info-box {
     background-color: #d3d3d3; 
     padding: 20px;
@@ -172,7 +172,7 @@ body, html {
 
 .reserve-info-btn:hover {
     background-color: #c9302c; 
-}
+} */
 
 /* map */
 .map-container {
