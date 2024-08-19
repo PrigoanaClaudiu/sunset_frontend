@@ -21,19 +21,17 @@ async function loadReviewSection() {
                 // User does not have a review, display the form without logging an error
                 displayReviewForm();
             } else {
+                // Log errors other than 404 if necessary
                 const errorData = await response.json();
+                console.error(`Failed to fetch user review: ${response.statusText}`);
                 console.error('Server error details:', errorData);
                 throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
         } catch (error) {
-            if (error.message.includes('404')) {
-                // Handle 404 specifically without logging the error
-                reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: Utilizatorul nu are o recenzie.</p>`;
-            } else {
-                // Log other errors if needed
+            if (!error.message.includes('404')) {
                 console.error('Error fetching review:', error);
-                reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
             }
+            reviewSection.innerHTML = `<p>Eroare la încărcarea recenziei: ${error.message}</p>`;
         }
     } else {
         reviewSection.innerHTML = `
@@ -42,6 +40,7 @@ async function loadReviewSection() {
         `;
     }
 }
+
 
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
