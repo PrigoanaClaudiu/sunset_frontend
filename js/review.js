@@ -48,9 +48,13 @@ function displayUserReview(review) {
         <div class="user-review">
             <h3>Recenzia ta</h3>
             <p>${review.content}</p>
-            <p>Rating: ${generateStarRating(review.rating)}</p>
-            <button onclick="editReview(${review.id})">Modifica</button>
-            <button onclick="deleteReview(${review.id})">Sterge</button>
+            <div class="rating-stars">
+                ${generateStarRating(review.rating)}
+            </div>
+            <div class="review-buttons">
+                <button onclick="editReview(${review.id})">Modifica</button>
+                <button onclick="deleteReview(${review.id})">Sterge</button>
+            </div>
         </div>
     `;
 }
