@@ -62,3 +62,103 @@ review-item h3 {
     text-align: center;
     margin-top: 20px;
 }
+/* Stilizare pentru stelele de rating */
+.rating-stars, .rating-stars label {
+    color: gold;
+    font-size: 2em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Evidențierea stelelor la hover */
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #f39c12;
+}
+
+/* Container pentru secțiunea de recenzii */
+#review-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+/* Stilizare pentru recenzii */
+.review-item {
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Stilizare pentru titlul recenziei */
+.review-item h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+/* Stilizare pentru textul recenziei */
+.review-item p {
+    color: #34495e;
+    margin-bottom: 15px;
+    line-height: 1.6em;
+}
+
+/* Stilizare pentru butoanele de editare și ștergere */
+.review-buttons button {
+    background-color: #27ae60;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.review-buttons button:hover {
+    background-color: #1e8449;
+}
+
+/* Mesaj pentru utilizatori neautentificați */
+#auth-message {
+    color: #c0392b;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Stilizare pentru formularul de review */
+#reviewForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#reviewContent {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    resize: vertical;
+}
+
+#reviewForm button {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reviewForm button:hover {
+    background-color: #1c598a;
+}

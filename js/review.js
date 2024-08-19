@@ -89,10 +89,10 @@ function generateStarInputs(selectedRating) {
     for (let i = 1; i <= 5; i++) {
         starInputs += `
             <input type="radio" name="rating" value="${i}" id="star${i}" ${i === selectedRating ? 'checked' : ''}>
-            <label for="star${i}">★</label>
+            <label for="star${i}" class="rating-star">★</label>
         `;
     }
-    return starInputs;
+    return `<div class="rating-stars">${starInputs}</div>`;
 }
 
 async function submitReview(event) {
