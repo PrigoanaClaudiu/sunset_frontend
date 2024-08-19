@@ -51,7 +51,7 @@
 
 /* Secțiune pentru formulare */
 #reviewForm-container {
-    background-color: #ffcc99; /* Culoare inspirată de apus */
+    background-color: #686868; /* Culoare inspirată de apus */
     padding: 20px;
     margin: 20px auto;
     max-width: 700px; /* Mai mare decât secțiunea de deasupra */
@@ -98,7 +98,7 @@
 
 /* Secțiune pentru recenzia utilizatorului */
 .user-review-container {
-    background-color: #007b06; /* Culoare inspirată de apus */
+    background-color: #686868; /* Culoare inspirată de apus */
     padding: 20px;
     margin: 20px auto;
     max-width: 700px; /* Mai mare decât secțiunea de deasupra */
