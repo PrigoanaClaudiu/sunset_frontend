@@ -16,8 +16,12 @@ async function loadReviewSection() {
 
             if (response.ok) {
                 const reviews = await response.json();
-                if (reviews.length > 0) {
-                    displayUserReview(reviews[0]);
+                
+                // Find the review that belongs to the current user
+                const userReview = reviews.find(review => review.user_id === getUserIdFromToken(token));
+                
+                if (userReview) {
+                    displayUserReview(userReview);
                 } else {
                     displayReviewForm();
                 }
@@ -34,6 +38,12 @@ async function loadReviewSection() {
             <a href="./pages/login.html" class="auth-link">AUTENTIFICARE</a>
         `;
     }
+}
+
+function getUserIdFromToken(token) {
+    // Decode the JWT token to extract the user ID
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.user_id;
 }
 
 function displayUserReview(review) {
@@ -116,6 +126,7 @@ async function submitReview(event) {
 
 async function editReview(id) {
     // Fetch the review and display it in the form for editing
+    // Handle the update functionality
 }
 
 async function deleteReview(id) {
