@@ -8,18 +8,17 @@ async function loadReviewSection() {
 
     if (token) {
         try {
-            const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews/', {
+            const userId = getUserIdFromToken(token);
+            const userReviewResponse = await fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            if (response.ok) {
-                const reviews = await response.json();
-                
-                // Find the review that belongs to the current user
-                const userReview = reviews.find(review => review.user_id === getUserIdFromToken(token));
-                
+            if (userReviewResponse.ok) {
+                const allReviews = await userReviewResponse.json();
+                const userReview = allReviews.find(review => review.user_id === userId);
+
                 if (userReview) {
                     displayUserReview(userReview);
                 } else {
@@ -29,7 +28,7 @@ async function loadReviewSection() {
                 throw new Error('Failed to fetch user review.');
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching review:', error);
             reviewSection.innerHTML = '<p>Eroare la încărcarea recenziei.</p>';
         }
     } else {
@@ -58,24 +57,22 @@ function displayUserReview(review) {
     `;
 }
 
-function displayReviewForm(review = null) {
+function displayReviewForm() {
     const reviewSection = document.getElementById('review-section');
-    const content = review ? review.content : '';
-    const rating = review ? review.rating : 0;
 
     reviewSection.innerHTML = `
-        <h3>${review ? 'Modifica recenzia ta' : 'Lasa un review'}</h3>
+        <h3>Lasa un review</h3>
         <form id="reviewForm">
-            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required>${content}</textarea>
+            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required></textarea>
             <div id="rating-container">
-                ${generateStarInputs(rating)}
+                ${generateStarInputs(0)}
             </div>
-            <button type="submit">${review ? 'Actualizeaza' : 'Trimite'}</button>
+            <button type="submit">Trimite</button>
         </form>
         <p id="error-message" style="display:none; color:red;"></p>
     `;
 
-    document.getElementById('reviewForm').addEventListener('submit', review ? submitReviewUpdate.bind(null, review.id) : submitReview);
+    document.getElementById('reviewForm').addEventListener('submit', submitReview);
 }
 
 function generateStarRating(rating) {
