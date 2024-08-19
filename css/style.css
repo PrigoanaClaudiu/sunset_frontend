@@ -1,299 +1,66 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.logo h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-    font-family: 'Arial', sans-serif; 
-    font-weight: bold; 
-    letter-spacing: 1px; 
-    text-transform: uppercase;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); 
-    border-bottom: 1px solid #f9d02f; 
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav ul li {
-    margin-right: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    padding: 10px 15px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-nav ul li a:hover,
-nav ul li a.reserve-btn {
-    background-color: #e3b04b;
-    color: #fff;
-}
-
-nav ul li a.reserve-btn {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-
-/* Slideshow container */
-.slideshow-container {
-    position: relative;
-    margin: auto;
-    max-width: 1000px; /* Ajustează după cum dorești */
-}
-
-/* Hide the images by default */
-.mySlides {
-    display: none;
-}
-
-/* Next & previous buttons */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-/* Position the "next button" to the right */
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Fading animation */
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@keyframes fade {
-    from {opacity: .4} 
-    to {opacity: 1}
-}
-/* slideshow */
-
-/* container index */
-body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-}
-
-.content-container {
-    display: flex;
-    justify-content: flex-start; 
-    align-items: center; 
-    margin: 20px;
-    padding: 0; 
-}
-
-.slideshow-container {
-    flex: 3;
-    margin-right: 110px; /* Spațiu între slideshow și containerul de informații */
-    margin-left: 0; 
-    padding: 0; 
-    height: auto; 
-}
-
-.info-box {
-    width: 250px; 
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center; 
-    align-self: center; 
-}
-
-/* reservation box index */
-.reservation-info-box {
-    background-color: #d3d3d3; 
-    padding: 20px;
-    margin: 20px auto; 
-    text-align: center; 
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px; 
-}
-
-.reserve-info-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #d9534f; 
-    color: white; 
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px; 
-    margin-top: 15px; 
-    transition: background-color 0.3s ease; 
-}
-
-.reserve-info-btn:hover {
-    background-color: #c9302c; 
-}
-
-/* map */
-.map-container {
-    max-width: 1200px;
+#reviews-section {
     margin: 20px auto;
-    padding: 10px;
-    text-align: center;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.map-container h2 {
-    margin-bottom: 20px;
-}
-
-/* Container cabin photo - about page */
-.cabin-container {
-    text-align: center;
     padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.cabin-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#reviews-section h2 {
     margin-bottom: 20px;
-}
-
-/* info about cabin - about page */
-.info-grid-about {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.info-box-about {
-    background-color: #e3b04b;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.8em;
+    color: #333;
     text-align: center;
-    flex: 1;
-    min-width: 150px;
-    max-width: 200px;
 }
-
-.info-box-about p {
-    font-size: 24px;
-    margin: 0;
-    font-weight: bold;
-}
-
-.info-box-about span {
-    font-size: 16px;
-}
-
-/* Container facilities - about page */
-.facilities-container {
-    display: flex;
-    gap: 20px;
-    margin-top: 40px;
-    align-items: flex-start;
-}
-
-/* faciliti image - about page */
-.facilities-image {
-    flex: 2;
-}
-
-
-.facilities-image img {
-    width: 100%;
-    height: 400px; 
-    object-fit: cover; /* asigura ca nu se deformeaza */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* facilities menu - about page */
-.facilities-menu {
-    flex: 1;
+#review-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+.review-item {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+review-item h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+.review-item p {
+    margin: 10px 0;
+    color: #555;
+}
 
-.facility-item {
+.rating-stars {
+    color: gold;
+    font-size: 1.5em;
+    letter-spacing: 3px;
+}
+.review-buttons {
     display: flex;
-    align-items: center;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    padding: 15px;
+    gap: 10px;
+    margin-top: 10px;
+}
+.review-buttons button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.facility-item:hover {
-    background-color: #e3b04b;
-    color: white;
+.review-buttons button:hover {
+    background-color: #0056b3;
 }
-
-.facility-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-}
-
-.facility-info h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.facility-info p {
-    margin: 5px 0 0;
-    font-size: 14px;
+#auth-message {
+    color: red;
+    font-size: 1em;
+    color: #d9534f;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 20px;
 }

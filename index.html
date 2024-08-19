@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Cabana Sunset</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/review.css">
 </head>
 <body>
     <div id="header-container"></div>
@@ -15,13 +14,13 @@
             <!-- Slideshow and Welcome Message -->
             <div class="slideshow-container">
                 <div class="mySlides fade">
-                    <img src="./images/1.jpeg" alt="Slide 1" class="slide-image">
+                    <img src="./images/1.jpeg" style="width:100%">
                 </div>
                 <div class="mySlides fade">
-                    <img src="./images/2.jpeg" alt="Slide 2" class="slide-image">
+                    <img src="./images/2.jpeg" style="width:100%">
                 </div>
                 <div class="mySlides fade">
-                    <img src="./images/3.jpeg" alt="Slide 3" class="slide-image">
+                    <img src="./images/3.jpeg" style="width:100%">
                 </div>
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -49,12 +48,13 @@
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
 
+                // Generate a unique URL for auth.js to prevent caching
                 var timestamp = new Date().getTime();
                 var authScript = document.createElement('script');
                 authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
                 authScript.onload = function() {
-                    updateAuthButton();  
-                    loadReviewSection();  
+                    updateAuthButton();  // Call this function after auth.js is loaded
+                    loadReviewSection();  // Load the review section after auth.js is loaded
                 };
                 document.body.appendChild(authScript);
             })
