@@ -88,12 +88,36 @@ function generateStarInputs(selectedRating) {
     let starInputs = '';
     for (let i = 1; i <= 5; i++) {
         starInputs += `
-            <input type="radio" name="rating" value="${i}" id="star${i}" ${i === selectedRating ? 'checked' : ''}>
+            <input type="radio" name="rating" value="${i}" id="star${i}" ${i === selectedRating ? 'checked' : ''} style="display:none;">
             <label for="star${i}" class="rating-star">★</label>
         `;
     }
     return `<div class="rating-stars">${starInputs}</div>`;
 }
+
+/* Corecție la selecția stelelor */
+document.addEventListener('change', function(event) {
+    if (event.target.name === 'rating') {
+        let selectedValue = event.target.value;
+        let stars = document.querySelectorAll('.rating-stars label');
+        stars.forEach((star, index) => {
+            if (index < selectedValue) {
+                star.style.color = 'gold';
+            } else {
+                star.style.color = '#ccc'; // Stele negre mai deschise pentru neactivate
+            }
+        });
+    }
+});
+
+/* Inițializare corectă a stelelor la încărcare */
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedRating = document.querySelector('input[name="rating"]:checked');
+    if (selectedRating) {
+        let event = new Event('change');
+        selectedRating.dispatchEvent(event);
+    }
+});
 
 async function submitReview(event) {
     event.preventDefault();
