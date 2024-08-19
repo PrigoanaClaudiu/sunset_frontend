@@ -2,17 +2,17 @@
 #reviews-section {
     margin: 20px auto;
     padding: 20px;
-    max-width: 700px;
+    max-width: 800px; /* Asigură-te că secțiunea de recenzii este mai mare decât cea de deasupra */
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Aliniază totul pe centru */
 }
 
 #reviews-section h2 {
     margin-bottom: 20px;
     font-size: 1.8em;
     color: #333;
-    text-align: center;
 }
 
 #review-container {
@@ -28,6 +28,7 @@
     border-radius: 10px;
     border: 1px solid #e3e3e3;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Aliniază textul la stânga */
 }
 
 .review-item h3 {
@@ -47,6 +48,7 @@
     font-size: 2.5em;
     color: gold;
     letter-spacing: 5px; /* Spațiu între stele */
+    text-align: center;
 }
 
 /* Stilizare pentru butoanele de modificare și ștergere */
@@ -108,6 +110,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    max-width: 600px;
+    margin: 0 auto; /* Centrează formularul */
 }
 
 #reviewContent {
