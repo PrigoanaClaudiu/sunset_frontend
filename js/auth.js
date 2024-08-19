@@ -114,14 +114,13 @@ if (registerForm) {
                 body: JSON.stringify({ name: name, email: email, password: password }),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
                 document.getElementById('success-message').innerText = 'Înregistrare reușită! Puteți acum să vă autentificați.';
                 document.getElementById('success-message').style.display = 'block';
                 document.getElementById('error-message').style.display = 'none';
                 registerForm.reset();
             } else {
+                const data = await response.json();
                 handleErrorMessage(data);
             }
         } catch (error) {
