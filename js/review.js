@@ -21,7 +21,7 @@ async function loadReviewSection() {
                 const userReview = await response.json();
                 displayUserReview(userReview);
             } else if (response.status === 404) {
-                // User does not have a review, display the form
+                // Afișează formularul dacă utilizatorul nu are un review
                 displayReviewForm();
             } else {
                 const errorData = await response.json();
@@ -58,23 +58,26 @@ function displayUserReview(review) {
     `;
 }
 
-function displayReviewForm() {
+function displayReviewForm(review = null) {
     const reviewSection = document.getElementById('review-section');
+    const content = review ? review.content : '';
+    const rating = review ? review.rating : 0;
 
     reviewSection.innerHTML = `
-        <h3>Lasa un review</h3>
+        <h3>${review ? 'Modifica recenzia ta' : 'Lasa un review'}</h3>
         <form id="reviewForm">
-            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required></textarea>
+            <textarea id="reviewContent" placeholder="Scrie recenzia ta..." required>${content}</textarea>
             <div id="rating-container">
-                ${generateStarInputs(0)}
+                ${generateStarInputs(rating)}
             </div>
-            <button type="submit">Trimite</button>
+            <button type="submit">${review ? 'Actualizeaza' : 'Trimite'}</button>
         </form>
         <p id="error-message" style="display:none; color:red;"></p>
     `;
 
-    document.getElementById('reviewForm').addEventListener('submit', submitReview);
+    document.getElementById('reviewForm').addEventListener('submit', review ? submitReviewUpdate.bind(null, review.id) : submitReview);
 }
+
 
 function generateStarRating(rating) {
     let stars = '';
@@ -178,6 +181,7 @@ async function submitReviewUpdate(id, event) {
         errorMessage.style.display = 'block';
     }
 }
+
 
 async function deleteReview(id) {
     const token = localStorage.getItem('token');
