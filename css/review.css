@@ -2,55 +2,62 @@
     margin: 20px auto;
     padding: 20px;
     max-width: 600px;
-    background-color: #fff;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #reviews-section h2 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    color: #444;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #333;
+    text-align: center;
 }
 
 #review-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .review-item {
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
     border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .review-item h3 {
     margin-top: 0;
+    color: #007bff;
 }
 
 .review-item p {
     margin: 10px 0;
+    color: #555;
 }
 
 .rating-stars {
     color: gold;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    letter-spacing: 3px;
 }
 
 .review-buttons {
     display: flex;
     gap: 10px;
+    margin-top: 10px;
 }
 
 .review-buttons button {
-    padding: 8px 12px;
+    padding: 8px 15px;
     background-color: #007bff;
     border: none;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .review-buttons button:hover {
@@ -58,11 +65,43 @@
 }
 
 #auth-message {
-    color: red;
-    font-size: 1em;
+    color: #d9534f;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 20px;
 }
 
 #auth-message a {
     color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#auth-message a:hover {
+    text-decoration: underline;
+}
+
+.review-item:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+}
+
+.rating-stars {
+    font-size: 2em;
+    color: #ffcc00;
+    margin-top: 10px;
+}
+
+.auth-link {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+.auth-link:hover {
+    background-color: #0056b3;
     text-decoration: none;
 }
