@@ -1,142 +1,64 @@
-/* General Review Container Styling */
-.review-container {
-    margin: 30px auto;
+#reviews-section {
+    margin: 20px auto;
     padding: 20px;
-    max-width: 800px;
-    background-color: #f5f5f5;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* User Review Styling */
-.user-review {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
+#reviews-section h2 {
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1.8em;
+    color: #333;
+    text-align: center;
 }
-
-/* Star Rating Display */
-.star-rating {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-    font-size: 35px;
-    color: #ffc107;
-}
-
-/* Review Form Styling */
-#reviewForm {
+#review-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 20px;
 }
-
-#reviewForm textarea {
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    resize: vertical;
-    min-height: 120px;
-    font-size: 16px;
-    color: #333;
-    width: 100%;
-    max-width: 700px;
+.review-item {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-#reviewForm textarea:focus {
-    outline: none;
-    border-color: #007BFF;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+review-item h3 {
+    margin-top: 0;
+    color: #007bff;
 }
-
-/* Rating Star Inputs */
-#rating-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-#rating-container input[type="radio"] {
-    display: none;
-}
-
-#rating-container label {
-    font-size: 35px;
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-#rating-container input[type="radio"]:checked ~ label,
-#rating-container label:hover,
-#rating-container label:hover ~ label {
-    color: #ffc107;
-}
-
-/* Error Message Styling */
-#error-message {
-    font-size: 14px;
-    margin-top: 10px;
-    color: red;
-    text-align: center;
-}
-
-/* Buttons Styling */
-.user-review button,
-#reviewForm button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-    transition: background-color 0.3s;
-}
-
-.user-review button:hover,
-#reviewForm button:hover {
-    background-color: #0056b3;
-}
-
-.user-review button:focus,
-#reviewForm button:focus {
-    outline: none;
-}
-
-.auth-link {
-    display: block;
-    margin-top: 20px;
-    color: #007BFF;
-    text-align: center;
-    font-size: 18px;
-    text-decoration: none;
-}
-
-.auth-link:hover {
-    text-decoration: underline;
-}
-
-/* Styling when User is Not Logged In */
-#review-section p {
-    font-size: 18px;
-    text-align: center;
+.review-item p {
+    margin: 10px 0;
     color: #555;
 }
-
-#review-section a.auth-link {
-    font-size: 20px;
-    font-weight: bold;
-    color: #28a745;
-    text-decoration: none;
+.rating-stars {
+    color: gold;
+    font-size: 1.5em;
+    letter-spacing: 3px;
 }
-
-#review-section a.auth-link:hover {
-    color: #218838;
-    text-decoration: underline;
+.review-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.review-buttons button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.review-buttons button:hover {
+    background-color: #0056b3;
+}
+#auth-message {
+    color: red;
+    font-size: 1em;
+    color: #d9534f;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 20px;
 }
