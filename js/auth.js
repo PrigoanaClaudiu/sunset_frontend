@@ -94,3 +94,40 @@ function handleErrorMessage(data) {
     document.getElementById('error-message').innerText = errorMessage;
     document.getElementById('error-message').style.display = 'block';
 }
+
+// Function to handle registration
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+    registerForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(registerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name, email: email, password: password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById('success-message').innerText = 'Înregistrare reușită! Puteți acum să vă autentificați.';
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('error-message').style.display = 'none';
+                registerForm.reset();
+            } else {
+                handleErrorMessage(data);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('error-message').innerText = 'A apărut o eroare neprevăzută. Vă rugăm să încercați din nou mai târziu.';
+            document.getElementById('error-message').style.display = 'block';
+        }
+    });
+}
