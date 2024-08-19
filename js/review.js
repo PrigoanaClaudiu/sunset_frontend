@@ -31,12 +31,13 @@ async function loadReviewSection() {
         }
     } else {
         reviewSection.innerHTML = `
-            <p>Autentifica-te pentru a ne lasa un review!</p>
-            <a href="./pages/login.html" class="auth-link">AUTENTIFICARE</a>
+            <div id="auth-message-container">
+                <p id="auth-message">Autentifica-te pentru a ne lasa un review!</p>
+                <a href="./pages/login.html" class="auth-link">AUTENTIFICARE</a>
+            </div>
         `;
     }
 }
-
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.user_id;

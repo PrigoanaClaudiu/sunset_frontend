@@ -9,6 +9,46 @@
     text-align: center;
 }
 
+/* Container pentru utilizator neautentificat */
+#auth-message-container {
+    background-color: #ffcc99; /* Culoare inspirată de apus */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px; /* Mai mare decât secțiunea de deasupra */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px; /* Înălțime fixă pentru a arăta bine centrat */
+}
+
+#auth-message {
+    color: #27ae60; /* Verde deschis */
+    font-size: 1.3em;
+    margin-bottom: 10px; /* Ajustează spațiul între mesaj și buton */
+}
+
+/* Buton de autentificare vizibil */
+.auth-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #27ae60; /* Verde */
+    color: white;
+    font-size: 1.1em;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-top: 10px; /* Spațiu între mesaj și buton */
+}
+
+.auth-link:hover {
+    background-color: #1e8449; /* Verde închis */
+}
+
 /* Secțiune pentru formulare */
 #reviewForm-container {
     background-color: #ffcc99; /* Culoare inspirată de apus */
@@ -56,43 +96,9 @@
     background-color: #1c598a;
 }
 
-/* Stilizare pentru mesajul de autentificare */
-#auth-message-container {
-    background-color: #ffcc99; /* Culoare inspirată de apus */
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 700px; /* Mai mare decât secțiunea de deasupra */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#auth-message {
-    color: #27ae60;
-    font-size: 1.3em;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-/* Buton de autentificare vizibil */
-.auth-link {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #27ae60; /* Verde */
-    color: white;
-    font-size: 1.1em;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.auth-link:hover {
-    background-color: #1e8449; /* Verde închis */
-}
-
 /* Secțiune pentru recenzia utilizatorului */
 .user-review-container {
-    background-color: #ffcc99; /* Culoare inspirată de apus */
+    background-color: #edd7c1; /* Culoare inspirată de apus */
     padding: 20px;
     margin: 20px auto;
     max-width: 700px; /* Mai mare decât secțiunea de deasupra */
