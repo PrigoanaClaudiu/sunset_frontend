@@ -1,11 +1,91 @@
-document.addEventListener("DOMContentLoaded", function() {
-    updateAuthState();  // Adjust the form based on the user's authentication state
-
+document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
     const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        await submitContactForm();
-    });
+    const contactsContainer = document.createElement('div'); // Container pentru mesajele de contact
+
+    if (userRole === 'admin') {
+        // Ascunde formularul de contact pentru admini
+        contactForm.style.display = 'none';
+
+        // Afișează toate mesajele de contact
+        fetchContacts();
+    } else {
+        setupFormSubmission();
+    }
+
+    function setupFormSubmission() {
+        document.getElementById('contactForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            await submitContactForm();
+        });
+    }
+
+    function fetchContacts() {
+        fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                displayContacts(data);
+            } else {
+                contactsContainer.innerHTML = 'Nu există mesaje de contact.';
+                document.querySelector('main').appendChild(contactsContainer);
+            }
+        })
+        .catch(error => {
+            console.error('Eroare la încărcarea mesajelor de contact:', error);
+        });
+    }
+
+    function displayContacts(contacts) {
+        contactsContainer.innerHTML = '';
+        contactsContainer.classList.add('admin-reservations-grid'); // Folosim același stil ca la rezervări
+
+        contacts.forEach(contact => {
+            const contactElement = document.createElement('div');
+            contactElement.className = 'admin-reservation-item'; // Stil similar cu rezervările
+            contactElement.innerHTML = `
+                <h3>Mesaj de la: ${contact.name}</h3>
+                <p>Email: ${contact.email}</p>
+                <p>Telefon: ${contact.phone_nr}</p>
+                <p>Mesaj: ${contact.message}</p>
+                <button class="delete-contact-btn" data-id="${contact.id}">Șterge</button>
+            `;
+            contactsContainer.appendChild(contactElement);
+        });
+
+        document.querySelector('main').appendChild(contactsContainer);
+
+        document.querySelectorAll('.delete-contact-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const contactId = this.dataset.id;
+                deleteContact(contactId);
+            });
+        });
+    }
+
+    function deleteContact(id) {
+        fetch(`https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                fetchContacts(); // Reîncarcă contactele după ștergere
+            } else {
+                console.error('Eroare la ștergerea mesajului de contact');
+            }
+        })
+        .catch(error => {
+            console.error('Eroare la ștergerea mesajului de contact:', error);
+        });
+    }
 });
 
 function updateAuthState() {
@@ -27,64 +107,6 @@ function updateAuthState() {
         console.log('Unauthenticated fields shown.');
     }
 }
-
-// async function submitContactForm() {
-//     const token = localStorage.getItem('token');
-
-//     // Collect the data from the form
-//     const nameField = document.getElementById('name');
-//     const emailField = document.getElementById('email');
-//     const phoneField = document.getElementById('phone');
-//     const messageField = document.getElementById('message');
-
-//     if (token) {
-//         // Retrieve stored user info for authenticated users
-//         const storedName = localStorage.getItem('user_name');
-//         const storedEmail = localStorage.getItem('user_email');
-
-//         if (storedName && nameField) {
-//             nameField.value = storedName;
-//         }
-//         if (storedEmail && emailField) {
-//             emailField.value = storedEmail;
-//         }
-//     }
-
-//     const contactData = {
-//         name: nameField ? nameField.value : "",
-//         email: emailField ? emailField.value : "",
-//         phone_nr: phoneField.value,
-//         message: messageField.value
-//     };
-
-
-//     try {
-//         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/contacts/', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 ...(token && { 'Authorization': `Bearer ${token}` })
-//             },
-//             body: JSON.stringify(contactData)
-//         });
-
-//         const responseData = await response.json();
-
-//         if (response.ok) {
-//             document.getElementById('success-message').style.display = 'block';
-//             document.getElementById('error-message').style.display = 'none';
-//             document.getElementById('contactForm').reset();
-//         } else {
-//             console.error('Error Response Data:', responseData);
-//             document.getElementById('error-message').innerText = responseData.detail ? responseData.detail[0].msg : 'An error occurred.';
-//             document.getElementById('error-message').style.display = 'block';
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         document.getElementById('error-message').innerText = 'An unexpected error occurred. Please try again later.';
-//         document.getElementById('error-message').style.display = 'block';
-//     }
-// }
 
 async function submitContactForm() {
     const token = localStorage.getItem('token');
