@@ -3,8 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const userRole = localStorage.getItem('role');
     const contactForm = document.getElementById('contactForm');
     const contactsContainer = document.createElement('div'); // Container pentru mesajele de contact
+    const titleElement = document.querySelector('h2');
 
     if (userRole === 'admin') {
+        // Schimbă titlul paginii pentru admini
+        titleElement.textContent = 'Toate contactele';
+
         // Ascunde formularul de contact pentru admini
         contactForm.style.display = 'none';
 
@@ -43,11 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayContacts(contacts) {
         contactsContainer.innerHTML = '';
-        contactsContainer.classList.add('admin-reservations-grid'); // Folosim același stil ca la rezervări
+        contactsContainer.classList.add('admin-contacts-grid'); // Folosim stilul pentru grid
 
         contacts.forEach(contact => {
             const contactElement = document.createElement('div');
-            contactElement.className = 'admin-reservation-item'; // Stil similar cu rezervările
+            contactElement.className = 'admin-contact-item'; // Stil pentru fiecare contact
             contactElement.innerHTML = `
                 <h3>Mesaj de la: ${contact.name}</h3>
                 <p>Email: ${contact.email}</p>
