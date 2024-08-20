@@ -12,8 +12,13 @@
     <div id="header-container"></div>
 
     <main>
-        <h2 class="reservation-title">Rezervați acum</h2>
-        <p class="reservation-note">Nota: cabana se poate rezerva numai integral la capacitatea de 14 persoane.</p>
+        <!-- Textul de introducere -->
+        <div id="reservation-info">
+            <h2 class="reservation-title">Rezervați acum</h2>
+            <p class="reservation-note">Nota: cabana se poate rezerva numai integral la capacitatea de 14 persoane.</p>
+        </div>
+
+        <!-- Formularul de rezervare -->
         <form id="reservationForm" class="reservation-form">
             <div id="unauthenticated-fields">
                 <label for="name">Nume complet:</label>
@@ -53,8 +58,12 @@
             <button type="submit">Rezervă acum</button>
         </form>
     
+        <!-- Mesaje de eroare și succes -->
         <p id="error-message" style="display:none; color: red;"></p>
         <p id="success-message" style="display:none; color: green;"></p>
+
+        <!-- Container pentru rezervările afișate adminilor -->
+        <div id="reservations-container" class="reservations-container"></div>
     </main>
 
     <script>
