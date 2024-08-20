@@ -66,6 +66,7 @@ if (loginForm) {
                 localStorage.setItem('token', data.access_token);
                 localStorage.setItem('user_name', data.user_name);  // Store the user's name
                 localStorage.setItem('user_email', data.user_email);  // Store the user's email
+                localStorage.setItem('role', data.role);
                 window.location.href = '/sunset_frontend/index.html'; // Redirect to the main page
             } else {
                 handleErrorMessage(data);
