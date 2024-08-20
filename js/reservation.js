@@ -12,17 +12,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const successMessage = document.getElementById('success-message');
     const unauthenticatedFields = document.getElementById('unauthenticated-fields');
     const reservationForm = document.getElementById('reservationForm');
+    const reservationsContainer = document.createElement('div'); // Creează un container pentru rezervări
 
     if (userRole === 'admin') {
         // Ascunde formularul de rezervare pentru admini
-        reservationInfo.style.display = 'none';
         reservationForm.style.display = 'none';
-
 
         // Afișează rezervările viitoare
         fetchUpcomingReservations();
     } else {
-
         prefillAuthenticatedUserFields();
         setupFormSubmission();
     }
@@ -147,7 +145,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-
     function fetchUpcomingReservations() {
         fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/upcoming', {
             headers: {
@@ -187,5 +184,8 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
             reservationsContainer.appendChild(reservationElement);
         });
+
+        // Adăugarea containerului în pagina principală
+        document.querySelector('main').appendChild(reservationsContainer);
     }
 });
