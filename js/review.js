@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function loadReviewSection() {
     const token = localStorage.getItem('token');
-    const userRole = localStorage.getItem('user_role');
+    const userRole = localStorage.getItem('role');
     const reviewSection = document.getElementById('review-section');
 
     if (userRole === 'admin') {
