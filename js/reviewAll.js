@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function loadReviews(rating = null, page = 1) {
-    // Folosește URL-ul complet către API-ul de pe Heroku, adăugând rating-ul dacă este specificat
     let apiUrl = `https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reviews`;
     if (rating) {
         apiUrl += `?rating=${rating}`;
@@ -15,9 +14,17 @@ async function loadReviews(rating = null, page = 1) {
     
     try {
         const response = await fetch(apiUrl);
+        
+        if (response.status === 404) {
+            // Dacă nu există recenzii pentru rating-ul specificat
+            displayReviews([], 0);
+            return;
+        }
+
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
         const reviews = await response.json();
         const start = (page - 1) * reviewsPerPage;
         const paginatedReviews = reviews.slice(start, start + reviewsPerPage);
@@ -75,7 +82,7 @@ function setupFilterButtons() {
     document.querySelectorAll('.filter-button').forEach(button => {
         button.addEventListener('click', () => {
             const rating = button.dataset.rating === 'all' ? null : button.dataset.rating;
-            currentPage = 1;  // Reset to first page on filter change
+            currentPage = 1;
             loadReviews(rating, currentPage);
         });
     });
