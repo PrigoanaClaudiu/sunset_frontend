@@ -12,11 +12,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const successMessage = document.getElementById('success-message');
     const unauthenticatedFields = document.getElementById('unauthenticated-fields');
     const reservationForm = document.getElementById('reservationForm');
-    const reservationsContainer = document.createElement('div'); // Creează un container pentru rezervări
+    const reservationInfo = document.getElementById('reservation-info');
+    const reservationsContainer = document.getElementById('reservations-container');
 
     if (userRole === 'admin') {
-        // Ascunde formularul de rezervare pentru admini
+        // Ascunde formularul de rezervare și textul de introducere pentru admini
         reservationForm.style.display = 'none';
+        reservationInfo.style.display = 'none';
 
         // Afișează rezervările viitoare
         fetchUpcomingReservations();
@@ -168,24 +170,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function displayReservations(reservations) {
         reservationsContainer.innerHTML = '';
-        reservationsContainer.classList.add('reservations-grid');
+        reservationsContainer.classList.add('admin-reservations-grid');
 
         reservations.forEach(reservation => {
             const reservationElement = document.createElement('div');
-            reservationElement.className = 'reservation-item';
+            reservationElement.className = 'admin-reservation-item';
             reservationElement.innerHTML = `
                 <h3>Rezervare pentru: ${reservation.name}</h3>
-                <p>Email: ${reservation.email}</p>
-                <p>Telefon: ${reservation.phone_nr}</p>
-                <p>Număr de persoane: ${reservation.no_pers}</p>
-                <p>Check-in: ${reservation.data_start}</p>
-                <p>Check-out: ${reservation.data_finish}</p>
-                <p>Detalii: ${reservation.details || 'N/A'}</p>
+                <p><span>Email:</span> ${reservation.email}</p>
+                <p><span>Telefon:</span> ${reservation.phone_nr}</p>
+                <p><span>Număr de persoane:</span> ${reservation.no_pers}</p>
+                <p><span>Check-in:</span> ${reservation.data_start}</p>
+                <p><span>Check-out:</span> ${reservation.data_finish}</p>
+                <p><span>Detalii:</span> ${reservation.details || 'N/A'}</p>
             `;
             reservationsContainer.appendChild(reservationElement);
         });
-
-        // Adăugarea containerului în pagina principală
-        document.querySelector('main').appendChild(reservationsContainer);
     }
 });
