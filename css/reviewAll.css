@@ -2,7 +2,7 @@
 #all-reviews-container {
     margin: 30px auto;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1000px; /* Mărim lățimea containerului pentru a face totul mai vizibil */
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -41,12 +41,13 @@
 
 /* Stilizare pentru fiecare review */
 .review-item-small {
-    background-color: #ffcc99; /* Culoare inspirată de apus */
+    background-color: #e69500;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
+
 
 .review-item-small h4 {
     font-size: 1.2em;
@@ -55,11 +56,10 @@
 }
 
 .review-item-small p {
-    color: #34495e;
+    color: #ffffff;
     margin-bottom: 10px;
     line-height: 1.4em;
 }
-
 .review-item-small .rating-stars {
     font-size: 1.5em;
     color: gold;
@@ -85,4 +85,10 @@
 
 #prev-button:hover, #next-button:hover {
     background-color: #1c598a;
+}
+
+.rating-stars {
+    font-size: 1.5em;
+    color: gold;
+    text-align: left;
 }
