@@ -31,11 +31,16 @@ function displayReviews(reviews, totalReviews) {
     const reviewsGrid = document.getElementById('reviews-grid');
     reviewsGrid.innerHTML = '';
 
+    if (reviews.length === 0) {
+        reviewsGrid.innerHTML = `<p>Nu exista astfel de recenzii.</p>`;
+        return;
+    }
+
     reviews.forEach(review => {
         const reviewElement = document.createElement('div');
         reviewElement.classList.add('review-item-small');
         reviewElement.innerHTML = `
-            <h4>${review.owner.name}</h4>
+            <h4>${review.owner.username}</h4>
             <p>${review.content}</p>
             <div class="rating-stars">${generateStarRating(review.rating)}</div>
         `;
