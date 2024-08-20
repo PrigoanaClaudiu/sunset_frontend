@@ -5,10 +5,13 @@ document.addEventListener("DOMContentLoaded", function() {
 async function loadReviewSection() {
     const token = localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
+    console.log('Token:', token);
+    console.log('User Role:', userRole);
+    
     const reviewSection = document.getElementById('review-section');
 
     if (userRole === 'admin') {
-        // Ascundem secțiunea de review pentru admini
+        console.log('Hiding review section for admin');
         document.getElementById('review-section').style.display = 'none';
         return;
     }
@@ -28,7 +31,6 @@ async function loadReviewSection() {
                 // User does not have a review, display the form without logging an error
                 displayReviewForm();
             } else {
-                // Handle other types of errors if needed
                 const errorData = await response.json();
                 throw new Error(`Failed to fetch user review: ${response.statusText}`);
             }
@@ -45,6 +47,7 @@ async function loadReviewSection() {
         `;
     }
 }
+
 
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
