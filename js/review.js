@@ -5,13 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
 async function loadReviewSection() {
     const token = localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
-    console.log('Token:', token);
-    console.log('User Role:', userRole);
     
     const reviewSection = document.getElementById('review-section');
 
     if (userRole === 'admin') {
-        console.log('Hiding review section for admin');
         document.getElementById('review-section').style.display = 'none';
         return;
     }
