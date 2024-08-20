@@ -10,63 +10,27 @@
 <body>
     <div id="header-container"></div>
     <main>
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
-            <meta charset="UTF-8">
-            <title>Contact - Cabana Sunset</title>
-            <link rel="stylesheet" href="../css/style.css">
-            <link rel="stylesheet" href="../css/contact.css">
-        </head>
-        <body>
-            <div id="header-container"></div>
-            <main>
-                <h2>Contactati-ne</h2>
-                <form id="contactForm">
-                    <div id="unauthenticated-fields">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-            
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-            
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-            
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-            
-                    <button type="submit">Send Message</button>
-                </form>
-            
-                <p id="error-message" style="display:none; color: red;"></p>
-                <p id="success-message" style="display:none;"></p>
-            </main>
-        
-            <script>
-                fetch('/sunset_frontend/pages/header.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('header-container').innerHTML = data;
-        
-                        // Generate a unique URL for auth.js to prevent caching
-                        var timestamp = new Date().getTime();
-                        var authScript = document.createElement('script');
-                        authScript.src = '/sunset_frontend/js/auth.js?v=' + timestamp;
-                        authScript.onload = function() {
-                            updateAuthButton();  // Call this function after auth.js is loaded
-                        };
-                        document.body.appendChild(authScript);
-                    })
-                    .catch(error => console.error('Error loading header:', error));
-            </script>
-            <script src="/sunset_frontend/js/script.js"></script>
-            <script src="/sunset_frontend/js/contact.js"></script>
-        </body>
-        </html>
-        
+        <h2>Contactati-ne</h2>
+        <form id="contactForm">
+            <div id="unauthenticated-fields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <p id="error-message" style="display:none; color: red;"></p>
+        <p id="success-message" style="display:none;"></p>
     </main>
 
     <script>
