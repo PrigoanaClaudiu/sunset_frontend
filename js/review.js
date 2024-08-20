@@ -4,7 +4,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function loadReviewSection() {
     const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('user_role');
     const reviewSection = document.getElementById('review-section');
+
+    if (userRole === 'admin') {
+        // Ascundem secțiunea de review pentru admini
+        document.getElementById('review-section').style.display = 'none';
+        return;
+    }
 
     if (token) {
         try {
@@ -38,6 +45,7 @@ async function loadReviewSection() {
         `;
     }
 }
+
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.user_id;
