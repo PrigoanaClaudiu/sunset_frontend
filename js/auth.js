@@ -31,8 +31,12 @@ function updateAuthButton() {
 }
 
 function logoutUser() {
-    // console.log('Logging out user...');
+    // Șterge toate datele relevante din localStorage la deconectare
     localStorage.removeItem('token');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('role');  // Șterge și rolul din localStorage
+
     updateAuthButton();  // Update the button back to login state
     window.location.href = '/sunset_frontend/index.html';  // Redirect to homepage
 }
