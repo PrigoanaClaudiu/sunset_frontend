@@ -46,17 +46,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function setupFormSubmission() {
+    async function fetchUnavailableDates() {
+        const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
+        const reservations = await response.json();
+        let unavailableDates = [];
+
+        reservations.forEach(reservation => {
+            let currentDate = new Date(reservation.data_start);
+            while (currentDate <= new Date(reservation.data_finish)) {
+                unavailableDates.push(currentDate.toISOString().split('T')[0]);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        });
+
+        return unavailableDates;
+    }
+
+    async function setupFormSubmission() {
         // Flatpickr setup for date selection
         flatpickr(dataStartField, {
             minDate: "today", // Disable past dates
             dateFormat: "Y-m-d", // Format for backend compatibility
-            onChange: function(selectedDates, dateStr, instance) {
+            disable: await fetchUnavailableDates(),
+            onChange: async function(selectedDates, dateStr) {
                 flatpickr(dataFinishField, {
                     minDate: dateStr,
                     maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
                     dateFormat: "Y-m-d", // Format for backend compatibility
-                    defaultDate: dateStr
+                    defaultDate: dateStr,
+                    disable: await fetchUnavailableDates()
                 });
             }
         });
@@ -67,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Form validation and submission
-        document.getElementById('reservationForm').addEventListener('submit', async function(event) {
+        reservationForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
             // Phone number validation
@@ -114,6 +132,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 details: detailsField.value
             };
 
+            // Check date availability before submitting
+            const checkResponse = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/check_availability/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token && { 'Authorization': `Bearer ${token}` })
+                },
+                body: JSON.stringify({ data_start: dataStartField.value, data_finish: dataFinishField.value })
+            });
+
+            const checkData = await checkResponse.json();
+
+            if (!checkData.available) {
+                errorMessage.innerText = 'Selected dates are not available. Please choose another range.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
             try {
                 const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/', {
                     method: 'POST',
@@ -148,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function fetchUpcomingReservations() {
-        fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/upcoming', {
+        fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all', {
             headers: {
                 ...(token && { 'Authorization': `Bearer ${token}` })
             }
