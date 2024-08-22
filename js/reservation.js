@@ -191,8 +191,12 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                displayReservations(data);
+            const today = new Date();
+            // Filter out reservations where the check-out date is in the past
+            const upcomingReservations = data.filter(reservation => new Date(reservation.data_finish) >= today);
+    
+            if (upcomingReservations.length > 0) {
+                displayReservations(upcomingReservations);
             } else {
                 successMessage.innerHTML = 'Nu există rezervări viitoare.';
                 successMessage.style.display = 'block';
@@ -203,7 +207,6 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMessage.style.display = 'block';
         });
     }
-
     function displayReservations(reservations) {
         reservationsContainer.innerHTML = '';
         reservationsContainer.classList.add('admin-reservations-grid');
