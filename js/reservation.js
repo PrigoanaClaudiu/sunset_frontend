@@ -119,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
+            // Log the dates for debugging
+            console.log("Data Start:", dataStartField.value);
+            console.log("Data Finish:", dataFinishField.value);
+
             // Clear any previous error messages
             errorMessage.style.display = 'none';
 
@@ -132,6 +136,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 details: detailsField.value
             };
 
+            // Log the payload being sent for debugging
+            console.log("Payload being sent:", reservationData);
+
             // Check date availability before submitting
             const checkResponse = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/check_availability/', {
                 method: 'POST',
@@ -143,6 +150,9 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             const checkData = await checkResponse.json();
+
+            // Log the response from the availability check for debugging
+            console.log("Check Availability Response:", checkData);
 
             if (!checkData.available) {
                 errorMessage.innerText = 'Selected dates are not available. Please choose another range.';
@@ -161,6 +171,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
 
                 const responseData = await response.json();
+
+                // Log the reservation response for debugging
+                console.log("Reservation Response:", responseData);
 
                 if (response.ok) {
                     successMessage.innerHTML = 'Rezervarea a fost trimisă cu succes!';
@@ -194,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const today = new Date();
             // Filter out reservations where the check-out date is in the past
             const upcomingReservations = data.filter(reservation => new Date(reservation.data_finish) >= today);
-    
+
             if (upcomingReservations.length > 0) {
                 displayReservations(upcomingReservations);
             } else {
@@ -207,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMessage.style.display = 'block';
         });
     }
+
     function displayReservations(reservations) {
         reservationsContainer.innerHTML = '';
         reservationsContainer.classList.add('admin-reservations-grid');
