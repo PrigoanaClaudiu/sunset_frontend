@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let currentDate = new Date(reservation.data_start);
             while (currentDate <= new Date(reservation.data_finish)) {
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
-                currentDate.setDate(currentDate.getDate() + 1);
+                currentDate.setDate(currentDate.getDate() + 2);
             }
         });
 
