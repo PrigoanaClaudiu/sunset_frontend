@@ -46,19 +46,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // async function fetchUnavailableDates() {
+    //     const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
+    //     const reservations = await response.json();
+    //     let unavailableDates = [];
+
+    //     reservations.forEach(reservation => {
+    //         let currentDate = new Date(reservation.data_start);
+    //         while (currentDate <= new Date(reservation.data_finish)) {
+    //             unavailableDates.push(currentDate.toISOString().split('T')[0]);
+    //             currentDate.setDate(currentDate.getDate() + 1);
+    //         }
+    //     });
+
+    //     return unavailableDates;
+    // }
     async function fetchUnavailableDates() {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
         const reservations = await response.json();
         let unavailableDates = [];
-
+    
         reservations.forEach(reservation => {
             let currentDate = new Date(reservation.data_start);
-            while (currentDate <= new Date(reservation.data_finish)) {
+            let endDate = new Date(reservation.data_finish);
+            endDate.setDate(endDate.getDate() + 1); // Adăugăm o zi pentru a face și data de check-out indisponibilă
+    
+            while (currentDate < endDate) { // Schimbăm condiția pentru a include data de check-out
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
-                currentDate.setDate(currentDate.getDate() + 2);
+                currentDate.setDate(currentDate.getDate() + 1);
             }
         });
-
+    
         return unavailableDates;
     }
 
