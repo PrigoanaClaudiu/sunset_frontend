@@ -46,89 +46,44 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // async function fetchUnavailableDates() {
-    //     const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
-    //     const reservations = await response.json();
-    //     let unavailableDates = [];
-
-    //     reservations.forEach(reservation => {
-    //         let currentDate = new Date(reservation.data_start);
-    //         while (currentDate <= new Date(reservation.data_finish)) {
-    //             unavailableDates.push(currentDate.toISOString().split('T')[0]);
-    //             currentDate.setDate(currentDate.getDate() + 1);
-    //         }
-    //     });
-
-    //     return unavailableDates;
-    // }
-
     async function fetchUnavailableDates() {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
         const reservations = await response.json();
         let unavailableDates = [];
-    
+
         reservations.forEach(reservation => {
-            let startDate = new Date(reservation.data_start);
-            let endDate = new Date(reservation.data_finish);
-            endDate.setDate(endDate.getDate() + 1); // Data de check-out trebuie să fie indisponibilă ca dată de check-in
-    
-            // Marcăm toate datele din intervalul [data_start, data_finish) ca indisponibile
-            let currentDate = new Date(startDate);
-            while (currentDate < endDate) {
+            let currentDate = new Date(reservation.data_start);
+            while (currentDate <= new Date(reservation.data_finish)) {
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         });
-    
+
         return unavailableDates;
     }
 
-    // async function setupFormSubmission() {
-    //     // Flatpickr setup for date selection
-    //     flatpickr(dataStartField, {
-    //         minDate: "today", // Disable past dates
-    //         dateFormat: "Y-m-d", // Format for backend compatibility
-    //         disable: await fetchUnavailableDates(),
-    //         onChange: async function(selectedDates, dateStr) {
-    //             flatpickr(dataFinishField, {
-    //                 minDate: dateStr,
-    //                 maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
-    //                 dateFormat: "Y-m-d", // Format for backend compatibility
-    //                 defaultDate: dateStr,
-    //                 disable: await fetchUnavailableDates()
-    //             });
-    //         }
-    //     });
-
-    //     flatpickr(dataFinishField, {
-    //         minDate: "today", // Disable past dates
-    //         dateFormat: "Y-m-d" // Format for backend compatibility
-    //     });
 
     async function setupFormSubmission() {
-        const unavailableDates = await fetchUnavailableDates();
-    
+        // Flatpickr setup for date selection
         flatpickr(dataStartField, {
-            minDate: "today",
-            dateFormat: "Y-m-d",
-            disable: unavailableDates, // Setează datele indisponibile
+            minDate: "today", // Disable past dates
+            dateFormat: "Y-m-d", // Format for backend compatibility
+            disable: await fetchUnavailableDates(),
             onChange: async function(selectedDates, dateStr) {
                 flatpickr(dataFinishField, {
                     minDate: dateStr,
-                    maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000),
-                    dateFormat: "Y-m-d",
+                    maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
+                    dateFormat: "Y-m-d", // Format for backend compatibility
                     defaultDate: dateStr,
-                    disable: unavailableDates // Setează datele indisponibile și pentru data de finish
+                    disable: await fetchUnavailableDates()
                 });
             }
         });
-    
+
         flatpickr(dataFinishField, {
-            minDate: "today",
-            dateFormat: "Y-m-d",
-            disable: unavailableDates //  datele indisponibile sunt setate
+            minDate: "today", // Disable past dates
+            dateFormat: "Y-m-d" // Format for backend compatibility
         });
-    }
 
         // Form validation and submission
         reservationForm.addEventListener('submit', async function(event) {
