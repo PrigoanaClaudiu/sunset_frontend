@@ -61,17 +61,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //     return unavailableDates;
     // }
+
     async function fetchUnavailableDates() {
         const response = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/all');
         const reservations = await response.json();
         let unavailableDates = [];
     
         reservations.forEach(reservation => {
-            let currentDate = new Date(reservation.data_start);
+            let startDate = new Date(reservation.data_start);
             let endDate = new Date(reservation.data_finish);
-            endDate.setDate(endDate.getDate() + 1); // Adăugăm o zi pentru a face și data de check-out indisponibilă
+            endDate.setDate(endDate.getDate() + 1); // Data de check-out trebuie să fie indisponibilă ca dată de check-in
     
-            while (currentDate < endDate) { // Schimbăm condiția pentru a include data de check-out
+            // Marcăm toate datele din intervalul [data_start, data_finish) ca indisponibile
+            let currentDate = new Date(startDate);
+            while (currentDate < endDate) {
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
@@ -80,27 +83,52 @@ document.addEventListener("DOMContentLoaded", function() {
         return unavailableDates;
     }
 
+    // async function setupFormSubmission() {
+    //     // Flatpickr setup for date selection
+    //     flatpickr(dataStartField, {
+    //         minDate: "today", // Disable past dates
+    //         dateFormat: "Y-m-d", // Format for backend compatibility
+    //         disable: await fetchUnavailableDates(),
+    //         onChange: async function(selectedDates, dateStr) {
+    //             flatpickr(dataFinishField, {
+    //                 minDate: dateStr,
+    //                 maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
+    //                 dateFormat: "Y-m-d", // Format for backend compatibility
+    //                 defaultDate: dateStr,
+    //                 disable: await fetchUnavailableDates()
+    //             });
+    //         }
+    //     });
+
+    //     flatpickr(dataFinishField, {
+    //         minDate: "today", // Disable past dates
+    //         dateFormat: "Y-m-d" // Format for backend compatibility
+    //     });
+
     async function setupFormSubmission() {
-        // Flatpickr setup for date selection
+        const unavailableDates = await fetchUnavailableDates();
+    
         flatpickr(dataStartField, {
-            minDate: "today", // Disable past dates
-            dateFormat: "Y-m-d", // Format for backend compatibility
-            disable: await fetchUnavailableDates(),
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            disable: unavailableDates, // Setează datele indisponibile
             onChange: async function(selectedDates, dateStr) {
                 flatpickr(dataFinishField, {
                     minDate: dateStr,
-                    maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
-                    dateFormat: "Y-m-d", // Format for backend compatibility
+                    maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000),
+                    dateFormat: "Y-m-d",
                     defaultDate: dateStr,
-                    disable: await fetchUnavailableDates()
+                    disable: unavailableDates // Setează datele indisponibile și pentru data de finish
                 });
             }
         });
-
+    
         flatpickr(dataFinishField, {
-            minDate: "today", // Disable past dates
-            dateFormat: "Y-m-d" // Format for backend compatibility
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            disable: unavailableDates //  datele indisponibile sunt setate
         });
+    }
 
         // Form validation and submission
         reservationForm.addEventListener('submit', async function(event) {
