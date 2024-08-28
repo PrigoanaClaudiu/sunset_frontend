@@ -261,11 +261,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const reservationsContainer = document.getElementById('reservations-container');
 
     if (userRole === 'admin') {
-        // Ascunde formularul de rezervare și textul de introducere pentru admini
         reservationForm.style.display = 'none';
         reservationInfo.style.display = 'none';
-
-        // Afișează rezervările viitoare
         fetchUpcomingReservations();
     } else {
         prefillAuthenticatedUserFields();
@@ -273,7 +270,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function prefillAuthenticatedUserFields() {
-        // Pre-fill fields for authenticated users
         if (token) {
             const storedName = localStorage.getItem('user_name');
             const storedEmail = localStorage.getItem('user_email');
@@ -281,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (storedName && nameField) {
                 nameField.value = storedName;
                 nameField.disabled = true;
-                unauthenticatedFields.style.display = 'none'; // Hide name and email fields
+                unauthenticatedFields.style.display = 'none';
             }
 
             if (storedEmail && emailField) {
@@ -298,11 +294,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         reservations.forEach(reservation => {
             let currentDate = new Date(reservation.data_start);
-            while (currentDate < new Date(reservation.data_finish)) { // We stop before the finish date
+            while (currentDate < new Date(reservation.data_finish)) { 
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
-            // Also disable the finish date itself
+            // Include ziua de check-out ca fiind indisponibilă
             unavailableDates.push(new Date(reservation.data_finish).toISOString().split('T')[0]);
         });
 
@@ -311,49 +307,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function setupFormSubmission() {
         const unavailableDates = await fetchUnavailableDates();
-        const disableDates = unavailableDates.map(date => {
-            return {
-                from: date,
-                to: date,
-            };
-        });
 
         // Flatpickr setup for date selection
         flatpickr(dataStartField, {
-            minDate: "today", // Disable past dates
-            dateFormat: "Y-m-d", // Format for backend compatibility
-            disable: disableDates,
-            onChange: async function(selectedDates, dateStr) {
+            minDate: "today", 
+            dateFormat: "Y-m-d", 
+            disable: unavailableDates,
+            onChange: function(selectedDates, dateStr) {
                 flatpickr(dataFinishField, {
-                    minDate: dateStr,
-                    maxDate: new Date(selectedDates[0].getTime() + 7 * 24 * 60 * 60 * 1000), // Max 7 days after check-in
-                    dateFormat: "Y-m-d", // Format for backend compatibility
-                    defaultDate: dateStr,
-                    disable: disableDates
+                    minDate: new Date(selectedDates[0]).fp_incr(1), // Plus one day after check-in
+                    maxDate: new Date(selectedDates[0]).fp_incr(7), 
+                    dateFormat: "Y-m-d", 
+                    disable: unavailableDates
                 });
             }
         });
 
         flatpickr(dataFinishField, {
-            minDate: "today", // Disable past dates
-            dateFormat: "Y-m-d", // Format for backend compatibility
-            disable: disableDates
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            disable: unavailableDates
         });
 
-        // Form validation and submission
         reservationForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            // Phone number validation
             const phoneNumber = phoneField.value;
-            const phoneRegex = /^\d{10}$/;  // Regular expression to match exactly 10 digits
+            const phoneRegex = /^\d{10}$/; 
             if (!phoneRegex.test(phoneNumber)) {
                 errorMessage.innerText = 'Numărul de telefon trebuie să conțină exact 10 cifre.';
                 errorMessage.style.display = 'block';
                 return;
             }
 
-            // Email validation
             const emailValue = emailField.value;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (emailField && !emailRegex.test(emailValue)) {
@@ -362,7 +348,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Check-in and Check-out date validation
             if (!dataStartField.value) {
                 errorMessage.innerText = 'Selectați o dată de check-in.';
                 errorMessage.style.display = 'block';
@@ -375,11 +360,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Log the dates for debugging
-            console.log("Data Start:", dataStartField.value);
-            console.log("Data Finish:", dataFinishField.value);
-
-            // Clear any previous error messages
             errorMessage.style.display = 'none';
 
             const reservationData = {
@@ -392,10 +372,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 details: detailsField.value
             };
 
-            // Log the payload being sent for debugging
-            console.log("Payload being sent:", reservationData);
-
-            // Check date availability before submitting
             const checkResponse = await fetch('https://fastapi-prigoana-eb60b2d64bc2.herokuapp.com/reservations/check_availability/', {
                 method: 'POST',
                 headers: {
@@ -406,9 +382,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             const checkData = await checkResponse.json();
-
-            // Log the response from the availability check for debugging
-            console.log("Check Availability Response:", checkData);
 
             if (!checkData.available) {
                 errorMessage.innerText = 'Selected dates are not available. Please choose another range.';
@@ -428,15 +401,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const responseData = await response.json();
 
-                // Log the reservation response for debugging
-                console.log("Reservation Response:", responseData);
-
                 if (response.ok) {
                     successMessage.innerHTML = 'Rezervarea a fost trimisă cu succes!';
                     successMessage.style.display = 'block';
                     document.getElementById('reservationForm').style.display = 'none';
 
-                    // Redirect after 3 seconds
                     setTimeout(() => {
                         window.location.href = '/sunset_frontend/index.html';
                     }, 3000);
@@ -461,7 +430,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             const today = new Date();
-            // Filter out reservations where the check-out date is in the past
             const upcomingReservations = data.filter(reservation => new Date(reservation.data_finish) >= today);
 
             if (upcomingReservations.length > 0) {
@@ -497,4 +465,3 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
-

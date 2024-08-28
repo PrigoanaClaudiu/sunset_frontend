@@ -166,3 +166,10 @@
     font-size: 0.85em;
     color: #888;
 }
+
+.flatpickr-day.disabled, .flatpickr-day.disabled:hover {
+    background-color: #e74c3c;
+    color: white;
+    opacity: 1;
+    cursor: not-allowed;
+}
