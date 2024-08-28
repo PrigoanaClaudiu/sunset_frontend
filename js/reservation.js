@@ -294,12 +294,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         reservations.forEach(reservation => {
             let currentDate = new Date(reservation.data_start);
-            while (currentDate < new Date(reservation.data_finish)) { 
+            const endDate = new Date(reservation.data_finish);
+            while (currentDate <= endDate) { 
                 unavailableDates.push(currentDate.toISOString().split('T')[0]);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
-            // Include ziua de check-out ca fiind indisponibilă
-            unavailableDates.push(new Date(reservation.data_finish).toISOString().split('T')[0]);
         });
 
         return unavailableDates;
@@ -308,25 +307,19 @@ document.addEventListener("DOMContentLoaded", function() {
     async function setupFormSubmission() {
         const unavailableDates = await fetchUnavailableDates();
 
-        // Flatpickr setup for date selection
         flatpickr(dataStartField, {
             minDate: "today", 
             dateFormat: "Y-m-d", 
             disable: unavailableDates,
             onChange: function(selectedDates, dateStr) {
+                const selectedDate = new Date(selectedDates[0]);
                 flatpickr(dataFinishField, {
-                    minDate: new Date(selectedDates[0]).fp_incr(1), // Plus one day after check-in
-                    maxDate: new Date(selectedDates[0]).fp_incr(7), 
+                    minDate: selectedDate.fp_incr(1), 
+                    maxDate: selectedDate.fp_incr(7), 
                     dateFormat: "Y-m-d", 
                     disable: unavailableDates
                 });
             }
-        });
-
-        flatpickr(dataFinishField, {
-            minDate: "today",
-            dateFormat: "Y-m-d",
-            disable: unavailableDates
         });
 
         reservationForm.addEventListener('submit', async function(event) {

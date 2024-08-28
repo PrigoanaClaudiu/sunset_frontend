@@ -168,7 +168,7 @@
 }
 
 .flatpickr-day.disabled, .flatpickr-day.disabled:hover {
-    background-color: #e74c3c;
+    background: #e74c3c !important;
     color: white;
     opacity: 1;
     cursor: not-allowed;
